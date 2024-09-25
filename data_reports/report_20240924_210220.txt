@@ -7,8 +7,6 @@ Patient Feedback: Just send someone in pain away...without words
 ############################
 # Agent: Patient Experience Expert
 ## Final Answer:
-**
-
 Sentiment_Patient_Experience_Expert: Negative
 Emotional_Intensity_Patient_Experience_Expert: -1
 Urgency_Level_Patient_Experience_Expert: High
@@ -60,11 +58,9 @@ Final_Recommendation_Communication_Expert: Implement a mandatory training progra
 Key_Issues_Manager_and_Advisor:
 - Poor communication quality due to lack of empathy, explanation, and validation from healthcare providers.
 - The use of abrupt language leading to emotional distress for patients.
-
 Recommendations_Manager_and_Advisor:
 - Implement a mandatory training program focusing on empathetic communication skills, emotional intelligence, and patient-centered care. This aims to enhance the provider's ability to understand and address patient emotions effectively.
 - Establish clear protocols for communicating with patients in distress or when delivering difficult news. These should provide guidance on how to maintain professionalism and empathy during challenging conversations.
-
 Summary: Based on expert feedback, poor communication quality was identified as a significant issue mainly characterized by lack of empathy from healthcare providers and the use of dismissive language that led to emotional distress. Recommendations focus on enhancing empathetic communication skills through mandatory training programs and establishing protocols for communicating with patients in distress. These measures aim to improve overall patient care and reduce emotional stress during interactions with medical staff.
 
 Total execution time: 3 minutes and 30 seconds.
