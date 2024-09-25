@@ -4,3 +4,4 @@ primaryColor = "#1b9e4b"
 backgroundColor = "#0E1117"
 secondaryBackgroundColor = "#31333F"
 textColor = "#FAFAFA"
+sidebarBackgroundColor = "#1E2129"  # Set the sidebar background color

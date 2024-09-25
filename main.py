@@ -1,74 +1,64 @@
 import streamlit as st
 import os
 import sys
-import pandas as pd
+import json
 
 # Add the current directory to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# Importing functions from other sections
 from sections.overview import show_overview
 from sections.ai_agents import show_ai_agents
-from sections.feedback_analysis import show_feedback_analysis
-from sections.styles import custom_css
-from utils.data_processor import cleanup_data_directory, extract_and_stack_data
-from utils.generate_sample_data import generate_sample_data
 from utils.config import DATA_DIR
 
+# Function to load JSON files (only used in the Feedback Analysis tab)
+def load_json_files(data_folder):
+    data = []
+    if not os.path.exists(data_folder):
+        st.error(f"The folder {data_folder} does not exist.")
+        return data
+
+    # Load JSON files from the folder
+    for file_name in os.listdir(data_folder):
+        if file_name.endswith(".json"):
+            file_path = os.path.join(data_folder, file_name)
+            try:
+                # Try to open the JSON file with the correct encoding (UTF-8)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data.append(json.load(f))
+            except UnicodeDecodeError:
+                st.error(f"Encoding error while reading the file {file_name}. Ensure the file is in UTF-8.")
+            except json.JSONDecodeError:
+                st.error(f"Error decoding JSON in file: {file_name}")
+    return data
+
+# Initial page setup
 def setup_page():
     st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
-    st.markdown(custom_css, unsafe_allow_html=True)
 
-def load_data():
-    st.write("DEBUG: Starting load_data function")
-    st.write("DEBUG: Cleaning up data directory...")
-    cleanup_data_directory()
-    
-    st.write("DEBUG: Generating sample data...")
-    generate_sample_data()
-
-    st.write("DEBUG: Checking created files...")
-    files = os.listdir(DATA_DIR)
-    if files:
-        st.write(f"DEBUG: Files found in {DATA_DIR}:")
-        for file in files:
-            st.write(f"- {file}")
-        
-        st.write("DEBUG: Extracting and stacking data...")
-        try:
-            df = extract_and_stack_data()
-            if df.empty:
-                st.warning("No data available. Please check the data files.")
-            else:
-                st.write(f"DEBUG: Data extraction complete. DataFrame shape: {df.shape}")
-                st.write("DEBUG: DataFrame columns:")
-                st.write(df.columns)
-                st.write("DEBUG: First few rows of the DataFrame:")
-                st.write(df.head())
-                return df
-        except Exception as e:
-            st.error(f"An error occurred during data extraction: {str(e)}")
-    else:
-        st.error(f"No files found in {DATA_DIR}. Unable to proceed with data extraction.")
-    
-    st.write("DEBUG: load_data function completed")
-    return None
-
+# Main function
 def main():
     setup_page()
 
-    # Load data only once when the app starts
-    if 'data' not in st.session_state:
-        st.session_state.data = load_data()
-
-    tab = st.sidebar.radio("Select a Tab", ["Overview", "AI Agents", "Feedback Analysis"])
+    # Sidebar tab selection, setting "Overview" as default
+    tab = st.sidebar.radio("Select a Tab", ["Overview", "AI Agents", "Feedback Analysis"], index=0)
 
     if tab == "Overview":
         show_overview()
     elif tab == "AI Agents":
         show_ai_agents()
     elif tab == "Feedback Analysis":
-        st.write("DEBUG: Calling show_feedback_analysis()")
-        show_feedback_analysis(st.session_state.data)
+        # Load JSON data only when the Feedback Analysis tab is selected
+        if 'feedback_data' not in st.session_state:
+            st.session_state.feedback_data = load_json_files(DATA_DIR)
+        
+        # Check if data has been loaded
+        if not st.session_state.feedback_data:
+            st.error("No data has been loaded.")
+        else:
+            st.success("Data loaded successfully!")
+            # Place logic here to display the data
+            st.write("Displaying feedback data... (future implementation)")
 
 if __name__ == "__main__":
     main()

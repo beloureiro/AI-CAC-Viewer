@@ -21,10 +21,19 @@ def show_overview():
     </div>
     """, unsafe_allow_html=True)
 
-    st.info("""
-    Key Benefits:
-    - Operates using local LLMs, ensuring maximum data security
-    - Processes all information internally, without reliance on third-party APIs
-    - Delivers significant cost savings by eliminating the need for external API usage
+    st.markdown("""
+    <div style='background-color: #083318; padding: 10px; border-radius: 5px; color: white;'>
+    <strong>Key Benefits:</strong><br>
+    - Operates using local LLMs, ensuring maximum data security<br>
+    - Processes all information internally, without reliance on third-party APIs<br>
+    - Delivers significant cost savings by eliminating the need for external API usage<br>
     - Maintains full control over data privacy
-    """)
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Add the powered by Inmotion link
+    st.markdown("""
+    <div style='text-align: center; margin-top: 20px;'>
+        <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
+    </div>
+    """, unsafe_allow_html=True)
