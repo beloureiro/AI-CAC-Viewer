@@ -32,6 +32,55 @@ def load_json_files(data_folder):
                 st.error(f"Error decoding JSON in file: {file_name}")
     return data
 
+# Function to display feedback data
+def show_feedback_analysis(feedback_data):
+    st.header("Patient Feedback Analysis")
+
+    if not feedback_data:
+        st.error("No feedback data available. Please check the data source.")
+        return
+
+    # Create a list of feedback options based on the loaded JSON data
+    feedback_options = [f"Feedback {i+1}" for i in range(len(feedback_data))]
+    selected_feedback_idx = st.selectbox("Select Feedback", range(len(feedback_data)), format_func=lambda x: feedback_options[x])
+    
+    selected_feedback = feedback_data[selected_feedback_idx]
+
+    # Display the patient feedback
+    st.subheader("Patient Feedback")
+    patient_feedback = selected_feedback.get("patient_feedback", "No feedback found.")
+    st.text_area("Feedback", patient_feedback, height=150)
+
+    # Display agent reports
+    st.subheader("Agent Reports")
+    
+    agents = [entry["agent_name"] for entry in selected_feedback.get("agents", [])]
+
+    for i, agent in enumerate(agents):
+        col1, col2 = st.columns(2)
+        agent_data = next((entry["response"] for entry in selected_feedback.get("agents", []) if entry["agent_name"] == agent), None)
+        
+        if i % 2 == 0:
+            with col1:
+                st.markdown(f"**{agent}**")
+            with col2:
+                if agent_data:
+                    for key, value in agent_data.items():
+                        st.markdown(f"**{key}:** {value}")
+                else:
+                    st.warning(f"No data found for {agent}")
+        else:
+            with col1:
+                if agent_data:
+                    for key, value in agent_data.items():
+                        st.markdown(f"**{key}:** {value}")
+                else:
+                    st.warning(f"No data found for {agent}")
+            with col2:
+                st.markdown(f"**{agent}**")
+
+        st.markdown("---")  # Add a separator between rows
+
 # Initial page setup
 def setup_page():
     st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
@@ -57,8 +106,8 @@ def main():
             st.error("No data has been loaded.")
         else:
             st.success("Data loaded successfully!")
-            # Place logic here to display the data
-            st.write("Displaying feedback data... (future implementation)")
+            # Call the function to display the data
+            show_feedback_analysis(st.session_state.feedback_data)
 
 if __name__ == "__main__":
     main()
