@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import json
-from config import DATA_DIR
+from utils.config import DATA_DIR
 
 def normalize_column_names(data):
     normalized_data = {}
@@ -12,7 +12,7 @@ def normalize_column_names(data):
 
 def cleanup_data_directory():
     import os
-    from config import DATA_DIR
+    from utils.config import DATA_DIR
     
     print(f"Cleaning up {DATA_DIR}...")
     for filename in os.listdir(DATA_DIR):

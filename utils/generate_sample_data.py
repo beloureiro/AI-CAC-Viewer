@@ -1,5 +1,5 @@
 import os
-from config import DATA_DIR
+from utils.config import DATA_DIR
 
 def generate_sample_data():
     print(f"Full path of DATA_DIR: {os.path.abspath(DATA_DIR)}")

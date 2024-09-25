@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from config import AGENTS
+from utils.config import AGENTS
 
 def format_feedback_id(feedback_id):
     parts = feedback_id.split('_')

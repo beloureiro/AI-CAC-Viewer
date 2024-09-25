@@ -12,7 +12,7 @@ from sections.feedback_analysis import show_feedback_analysis
 from sections.styles import custom_css
 from utils.data_processor import cleanup_data_directory, extract_and_stack_data
 from utils.generate_sample_data import generate_sample_data
-from config import DATA_DIR
+from utils.config import DATA_DIR
 
 def setup_page():
     st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
@@ -59,8 +59,6 @@ def main():
     # Load data only once when the app starts
     if 'data' not in st.session_state:
         st.session_state.data = load_data()
-
-    st.markdown('<h1 style="color: #1b9e4b; font-style: italic;">AI</span> Clinical Advisory <span style="color: #1b9e4b; font-style: italic;">Crew</span></h1>', unsafe_allow_html=True)
 
     tab = st.sidebar.radio("Select a Tab", ["Overview", "AI Agents", "Feedback Analysis"])
 
