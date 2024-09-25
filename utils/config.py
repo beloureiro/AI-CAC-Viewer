@@ -39,3 +39,38 @@ AGENT_NAME_MAPPING = {
     "Communication Expert (Mistral Model)": "Communication Expert",
     "Manager and Advisor (Qwen Model)": "Manager and Advisor"
 }
+
+# utils/config.py
+
+# Dicionário de equivalência para os títulos dos relatórios dos agentes
+FIELD_EQUIVALENCE = {
+    # Patient Experience Expert
+    "Sentiment_Patient_Experience_Expert": "Sentiment",
+    "Emotional_Intensity_Patient_Experience_Expert": "Emotional Intensity",
+    "Urgency_Level_Patient_Experience_Expert": "Urgency Level",
+    "Key_Issues_Patient_Experience_Expert": "Key Issues",
+
+    # Health & IT Process Expert
+    "Patient_Journey_Health_IT_Process_Expert": "Patient Journey",
+    "Inefficiencies_Healthcare_Process_Health_IT_Process_Expert": "Inefficiencies in Healthcare Process",
+    "Improvement_Suggestions_Healthcare_Process_Health_IT_Process_Expert": "Improvement Suggestions",
+
+    # Clinical Psychologist
+    "Emotional_State_Clinical_Psychologist": "Emotional State",
+    "Support_Strategy_Clinical_Psychologist": "Support Strategy",
+    "Suggested_Approach_Clinical_Psychologist": "Suggested Approach",
+
+    # Communication Expert
+    "Communication_Quality_Communication_Expert": "Communication Quality",
+    "Issues_Identified_Communication_Expert": "Issues Identified",
+    "Suggested_Improvements_Communication_Expert": "Suggested Improvements",
+    "Final_Recommendation_Communication_Expert": "Final Recommendation",
+
+    # Manager and Advisor
+    "Key_Issues_Manager_and_Advisor": "Key Issues",
+    "Recommendations_Manager_and_Advisor": "Recommendations"
+}
+
+# Outras variáveis de configuração (se houver)
+
+

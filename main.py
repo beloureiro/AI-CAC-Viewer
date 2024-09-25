@@ -1,113 +1,98 @@
 import streamlit as st
-import os
-import sys
-import json
-
-# Add the current directory to the Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-# Importing functions from other sections
-from sections.overview import show_overview
+from sections.feedback_analysis import patient_feedback_analyzer
 from sections.ai_agents import show_ai_agents
-from utils.config import DATA_DIR
+from sections.overview import show_overview
 
-# Function to load JSON files (only used in the Feedback Analysis tab)
-def load_json_files(data_folder):
-    data = []
-    if not os.path.exists(data_folder):
-        st.error(f"The folder {data_folder} does not exist.")
-        return data
-
-    # Load JSON files from the folder
-    for file_name in os.listdir(data_folder):
-        if file_name.endswith(".json"):
-            file_path = os.path.join(data_folder, file_name)
-            try:
-                # Try to open the JSON file with the correct encoding (UTF-8)
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    data.append(json.load(f))
-            except UnicodeDecodeError:
-                st.error(f"Encoding error while reading the file {file_name}. Ensure the file is in UTF-8.")
-            except json.JSONDecodeError:
-                st.error(f"Error decoding JSON in file: {file_name}")
-    return data
-
-# Function to display feedback data
-def show_feedback_analysis(feedback_data):
-    st.header("Patient Feedback Analysis")
-
-    if not feedback_data:
-        st.error("No feedback data available. Please check the data source.")
-        return
-
-    # Create a list of feedback options based on the loaded JSON data
-    feedback_options = [f"Feedback {i+1}" for i in range(len(feedback_data))]
-    selected_feedback_idx = st.selectbox("Select Feedback", range(len(feedback_data)), format_func=lambda x: feedback_options[x])
-    
-    selected_feedback = feedback_data[selected_feedback_idx]
-
-    # Display the patient feedback
-    st.subheader("Patient Feedback")
-    patient_feedback = selected_feedback.get("patient_feedback", "No feedback found.")
-    st.text_area("Feedback", patient_feedback, height=150)
-
-    # Display agent reports
-    st.subheader("Agent Reports")
-    
-    agents = [entry["agent_name"] for entry in selected_feedback.get("agents", [])]
-
-    for i, agent in enumerate(agents):
-        col1, col2 = st.columns(2)
-        agent_data = next((entry["response"] for entry in selected_feedback.get("agents", []) if entry["agent_name"] == agent), None)
-        
-        if i % 2 == 0:
-            with col1:
-                st.markdown(f"**{agent}**")
-            with col2:
-                if agent_data:
-                    for key, value in agent_data.items():
-                        st.markdown(f"**{key}:** {value}")
-                else:
-                    st.warning(f"No data found for {agent}")
-        else:
-            with col1:
-                if agent_data:
-                    for key, value in agent_data.items():
-                        st.markdown(f"**{key}:** {value}")
-                else:
-                    st.warning(f"No data found for {agent}")
-            with col2:
-                st.markdown(f"**{agent}**")
-
-        st.markdown("---")  # Add a separator between rows
-
-# Initial page setup
-def setup_page():
-    st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
-
-# Main function
 def main():
-    setup_page()
-
-    # Sidebar tab selection, setting "Overview" as default
+    # Configura a página (deve ser a primeira chamada do Streamlit)
+    st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
+    
+    # Menu lateral para navegação
     tab = st.sidebar.radio("Select a Tab", ["Overview", "AI Agents", "Feedback Analysis"], index=0)
-
+    
+    # Navegação entre as seções
     if tab == "Overview":
-        show_overview()
+        show_overview()  # A página Overview será exibida por padrão
     elif tab == "AI Agents":
         show_ai_agents()
     elif tab == "Feedback Analysis":
-        # Load JSON data only when the Feedback Analysis tab is selected
-        if 'feedback_data' not in st.session_state:
-            st.session_state.feedback_data = load_json_files(DATA_DIR)
+          
+        # Instancia o analisador de feedback
+        analyzer = patient_feedback_analyzer()
         
-        # Check if data has been loaded
-        if not st.session_state.feedback_data:
-            st.error("No data has been loaded.")
-        else:
-            st.success("Data loaded successfully!")
-            # Call the function to display the data
-            show_feedback_analysis(st.session_state.feedback_data)
+        # Verifica se o analyzer não é None - Se necessário, apenas continue o fluxo sem exibir erro
+        if analyzer is None:
+            # Remova a linha abaixo para não exibir a mensagem de erro
+            # st.error("An error occurred while loading the feedback analyzer. Please check the data.")
+            st.stop()  # Para a execução da página se realmente for necessário
+
+        # Escolha de modo de visualização
+        view_mode = st.radio("Select view mode:", ("By Feedback", "By Agent", "Table View", "Complete Report (TXT)"), index=0, key="view_mode_radio")
+        
+        # Modo de visualização: Por Feedback
+        if view_mode == "By Feedback":
+            selected_feedback = st.selectbox("Select a feedback", options=analyzer.get_feedback_list(), key="feedback_selectbox")
+            feedback_data = analyzer.get_feedback_data(selected_feedback)
+            
+            if feedback_data:
+                display_feedback(feedback_data, analyzer)
+                display_agent_reports(analyzer, "feedback", analyzer.get_feedback_list().index(selected_feedback))
+            else:
+                st.error("Selected feedback data not found.")
+                
+        # Modo de visualização: Por Agente
+        elif view_mode == "By Agent":
+            selected_agent = st.selectbox("Select an agent", options=analyzer.get_agent_list(), key="agent_selectbox")
+            display_agent_reports(analyzer, "agent", selected_agent)
+        
+        # Modo de visualização: Tabela
+        elif view_mode == "Table View":
+            display_table_view(analyzer)
+        
+        # Modo de visualização: Relatório completo (TXT)
+        elif view_mode == "Complete Report (TXT)":
+            display_complete_txt_report(analyzer)
+
+# Função para exibir feedback e KPIs
+def display_feedback(feedback_data, analyzer):
+    st.subheader("Patient Feedback")
+    st.text_area("Feedback", feedback_data['content'].get('patient_feedback', 'No feedback available.'), height=150)
+    
+    st.subheader("Key Performance Indicators")
+    patient_expert = analyzer.get_patient_expert_data(feedback_data['content'].get('agents', []))
+    kpi_data = analyzer.get_kpi_data(patient_expert)
+    
+    if kpi_data:
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Sentiment", kpi_data.get('Sentiment', 'N/A'))
+        col2.metric("Emotional Intensity", kpi_data.get('Emotional Intensity', 'N/A'))
+        col3.metric("Urgency Level", kpi_data.get('Urgency Level', 'N/A'))
+
+# Função para exibir relatórios dos agentes
+def display_agent_reports(analyzer, mode, selected_item):
+    st.subheader("Agent Reports")
+    reports = analyzer.get_agent_reports(mode, selected_item)
+    
+    # Exibe relatórios expandidos
+    for report in reports:
+        with st.expander(f"Agent: {report['agent_name']}" if mode == "feedback" else f"Feedback: {report['feedback_name']}"):
+            for key, value in report['agent_report']['response'].items():
+                st.write(f"{key}: {value}")
+
+# Função para exibir a visão em tabela
+def display_table_view(analyzer):
+    st.subheader("All Feedback and Agent Reports")
+    df = analyzer.get_table_data()  # Obtém a tabela de dados
+    st.dataframe(df)
+
+# Função para exibir o relatório completo (TXT)
+def display_complete_txt_report(analyzer):
+    st.subheader("Complete Report (TXT)")
+    selected_feedback = st.selectbox("Select a feedback", options=analyzer.get_feedback_list(), key="complete_report_selectbox")
+    report_name = selected_feedback.split('.')[0]  # Remove extensão do nome do arquivo
+    txt_report = analyzer.get_txt_report(report_name)  # Obtém o conteúdo do relatório TXT
+    st.text_area("TXT Report", txt_report, height=600)
+    st.download_button("Download TXT Report", txt_report, file_name=f"{report_name}.txt")
 
 if __name__ == "__main__":
     main()

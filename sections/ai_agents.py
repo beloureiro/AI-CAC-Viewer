@@ -52,6 +52,12 @@ def show_ai_agents():
         # Add a separator between agent rows
         st.markdown("<hr style='border-top: 1px solid #ddd;'>", unsafe_allow_html=True)
 
+    # Add the powered by Inmotion link
+    st.markdown("""
+    <div style='text-align: center; margin-top: 20px;'>
+        <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
+    </div>
+    """, unsafe_allow_html=True)
 # Call to display the agents
 # Remove this line if it's causing issues
 # show_ai_agents()
