@@ -2,17 +2,20 @@ import streamlit as st
 from sections.feedback_analysis import patient_feedback_analyzer
 from sections.ai_agents import show_ai_agents
 from sections.overview import show_overview
+from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
 
 def main():
     # Configura a página (deve ser a primeira chamada do Streamlit)
     st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
     
     # Menu lateral para navegação
-    tab = st.sidebar.radio("Select a Tab", ["Overview", "AI Agents", "Feedback Analysis"], index=0)
+    tab = st.sidebar.radio("Select a Tab", ["Overview", "Plans & Use Case", "AI Agents", "Feedback Analysis"], index=0)  # Reordenado
     
     # Navegação entre as seções
     if tab == "Overview":
         show_overview()  # A página Overview será exibida por padrão
+    elif tab == "Plans & Use Case":  # Alterado o nome da condição
+        ai_clinical_advisory_crew_tab()  # Chama a função da nova aba
     elif tab == "AI Agents":
         show_ai_agents()
     elif tab == "Feedback Analysis":
@@ -52,6 +55,9 @@ def main():
         # Modo de visualização: Relatório completo (TXT)
         elif view_mode == "Complete Report (TXT)":
             display_complete_txt_report(analyzer)
+
+    elif tab == "Plans & Use Case":  # Alterado o nome da condição
+        ai_clinical_advisory_crew_tab()  # Chama a função da nova aba
 
 # Função para exibir feedback e KPIs
 def display_feedback(feedback_data, analyzer):

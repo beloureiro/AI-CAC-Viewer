@@ -300,3 +300,5 @@ def patient_feedback_analyzer():
         <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
     </div>
     """, unsafe_allow_html=True)
+
+    
