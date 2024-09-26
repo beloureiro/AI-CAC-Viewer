@@ -197,9 +197,20 @@ def patient_feedback_analyzer():
             <span style="color: #1b9e4b; font-style: italic;">Crew</span>
         </h1>
     ''', unsafe_allow_html=True)
+    
     # Centraliza o sub-título
     st.markdown("<h2 style='text-align: center;'>Patient Feedback Analysis</h2>", unsafe_allow_html=True)
     st.markdown("---")
+    
+    # Adiciona o disclaimer
+    st.markdown('''
+    <p><strong>Disclaimer</strong></p>
+    <p>The analyses in this report were conducted by different LLM models in <em>training mode</em>, which take patient feedback as absolute truth. Feedback reflects the patient's individual perception and, in some cases, may not capture the full complexity of the situation, including institutional and contextual factors.</p>
+    <p>AI Clinical Advisory Crew framework, <em>beyond</em> providing technical analyses, acts as a strategic driver, steering managerial decisions across various operational areas.<br>
+    <em>The reader is responsible for validating the feasibility of the suggested actions and their alignment with stakeholder objectives.</em></p>
+    ''', unsafe_allow_html=True)
+    st.markdown("---")
+    
     # Carrega os dados da pasta data_reports_json
     data = load_json_files('data_reports_json')
 
