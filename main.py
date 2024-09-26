@@ -9,12 +9,12 @@ def main():
     st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
     
     # Menu lateral para navegação
-    tab = st.sidebar.radio("Select a Tab", ["Overview", "Plans & Use Case", "AI Agents", "Feedback Analysis"], index=0)  # Reordenado
+    tab = st.sidebar.radio("Select a Tab", ["Overview", "How It Works", "AI Agents", "Feedback Analysis"], index=0)  # Reordenado
     
     # Navegação entre as seções
     if tab == "Overview":
         show_overview()  # A página Overview será exibida por padrão
-    elif tab == "Plans & Use Case":  # Alterado o nome da condição
+    elif tab == "How It Works":  # Alterado o nome da condição
         ai_clinical_advisory_crew_tab()  # Chama a função da nova aba
     elif tab == "AI Agents":
         show_ai_agents()
