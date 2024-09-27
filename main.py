@@ -3,6 +3,7 @@ from sections.feedback_analysis import patient_feedback_analyzer
 from sections.ai_agents import show_ai_agents
 from sections.overview import show_overview
 from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
+from sections.ai_crew import ai_crew_component  # Importa a nova função
 
 def main():
     # Configura a página (deve ser a primeira chamada do Streamlit)
@@ -17,7 +18,7 @@ def main():
     elif tab == "How It Works":  # Alterado o nome da condição
         ai_clinical_advisory_crew_tab()  # Chama a função da nova aba
     elif tab == "AI Agents":
-        show_ai_agents()
+        ai_crew_component()  # Chama a função da nova aba
     elif tab == "Feedback Analysis":
           
         # Instancia o analisador de feedback

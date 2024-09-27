@@ -115,7 +115,7 @@ def ai_clinical_advisory_crew_tab():
             st.markdown(f'<div class="plan-details">{get_plan_details(plan)}</div>', unsafe_allow_html=True)
 
     # Plan Diagrams section
-    st.markdown('<p class="subheader">Plan Diagrams</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subheader">Plan Workflow Diagrams</p>', unsafe_allow_html=True)
 
     selected_plan = st.selectbox(
         "Select a Plan to view its diagram",
@@ -189,8 +189,15 @@ def ai_clinical_advisory_crew_tab():
         """
     }
 
+    # Set initial heights for each plan
+    diagram_heights = {
+        "Insight": 600,
+        "Mentor": 700,
+        "Mentor & Care": 800
+    }
+
     mermaid_chart = f'''
-    <div class="mermaid">
+    <div class="mermaid" id="mermaid-diagram">
     %%{{init: {{
         'theme': 'dark',
         'themeVariables': {{
@@ -211,10 +218,26 @@ def ai_clinical_advisory_crew_tab():
       startOnLoad: true,
       theme: 'dark'
     }});
+
+    function adjustMermaidHeight() {{
+        var mermaidDiv = document.getElementById('mermaid-diagram');
+        var svgElement = mermaidDiv.querySelector('svg');
+        if (svgElement) {{
+            var height = svgElement.getBBox().height;
+            mermaidDiv.style.height = (height + 40) + 'px';  // Add more padding
+        }}
+    }}
+
+    // Adjust height after Mermaid has rendered the diagram
+    mermaid.init(undefined, ".mermaid");
+    setTimeout(adjustMermaidHeight, 500);  // Increased delay for rendering
+
+    // Adjust height when window is resized
+    window.addEventListener('resize', adjustMermaidHeight);
     </script>
     '''
     
-    components.html(mermaid_chart, height=600)
+    components.html(mermaid_chart, height=diagram_heights[selected_plan])
 
     # New section for side-by-side comparison
     st.markdown('<p class="subheader">Compare Plans Side-by-Side</p>', unsafe_allow_html=True)
@@ -236,7 +259,6 @@ def ai_clinical_advisory_crew_tab():
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Add new section for the cycle of well-rated professionals
-    st.write("---")  # Usando st.write
     st.markdown('<p class="subheader">Cycle of Well-Rated Professionals</p>', unsafe_allow_html=True)
     
     st.markdown("""
@@ -255,7 +277,6 @@ def ai_clinical_advisory_crew_tab():
 
     This cycle demonstrates how the AI Clinical Advisory Crew contributes to both professional growth and patient satisfaction, creating a win-win situation for all involved.
     """)
-
 
     # New Mermaid diagram
     mermaid_chart = """
@@ -310,7 +331,7 @@ def ai_clinical_advisory_crew_tab():
     </script>
     """
     
-    components.html(mermaid_chart, height=600)
+    components.html(mermaid_chart, height=500)
     
     st.markdown("<hr style='border-top: 1px solid #ddd;'>", unsafe_allow_html=True)
 
