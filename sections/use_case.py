@@ -238,6 +238,8 @@ def ai_clinical_advisory_crew_tab():
     '''
     
     components.html(mermaid_chart, height=diagram_heights[selected_plan])
+    # Linha Horizontal
+    st.markdown("---")
 
     # New section for side-by-side comparison
     st.markdown('<p class="subheader">Compare Plans Side-by-Side</p>', unsafe_allow_html=True)
@@ -258,6 +260,8 @@ def ai_clinical_advisory_crew_tab():
         st.markdown(f'<div class="plan-details">{get_plan_details(plan2)}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
+    # Linha Horizontal
+    st.markdown("---")
     # Add new section for the cycle of well-rated professionals
     st.markdown('<p class="subheader">Cycle of Well-Rated Professionals</p>', unsafe_allow_html=True)
     
@@ -267,16 +271,17 @@ def ai_clinical_advisory_crew_tab():
     1. **Patient Interaction**: The cycle begins with a patient seeking healthcare services.
     
     2. **Cycle of Self-Development**: Healthcare professionals engage in a continuous process of improvement:
-       - **Well-Rated Professionals**: These are the healthcare providers who have already achieved high ratings and success.
-       - **Mentorship**: Well-rated professionals provide mentorship and guidance to others.
-       - **Improved Professionals**: Through mentorship and the AI Clinical Advisory Crew's insights, professionals enhance their skills and practices.
+       - <span style="color:#1b9e4b"><b>Well-Rated Professionals</b></span>: These are the healthcare providers who have already achieved high ratings and success.
+       - <span style="color:#1b9e4b"><b>Mentorship</b></span>: Well-rated professionals provide mentorship and guidance to others.
+       - <span style="color:#1b9e4b"><b>Improved Professionals</b></span>: Through mentorship and the AI Clinical Advisory Crew's insights, professionals enhance their skills and practices.
     
     3. **Outcomes**:
-       - **Happy Patients**: The improved healthcare services lead to increased patient satisfaction.
-       - **Fully Booked Professionals**: As professionals improve and gain higher ratings, they attract more patients, leading to a thriving practice.
+       - <span style="color:#1b9e4b"><b>Happy Patients</b></span>: The improved healthcare services lead to increased patient satisfaction.
+       - <span style="color:#1b9e4b"><b>Fully Booked Professionals</b></span>: As professionals improve and gain higher ratings, they attract more patients, leading to a thriving practice.
 
     This cycle demonstrates how the AI Clinical Advisory Crew contributes to both professional growth and patient satisfaction, creating a win-win situation for all involved.
-    """)
+    """, unsafe_allow_html=True)
+
 
     # New Mermaid diagram
     mermaid_chart = """
