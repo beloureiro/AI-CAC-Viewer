@@ -4,6 +4,8 @@
 
 This Viewer is **not the backend** but rather a tool for users to visualize and interact with the AI agents' outputs. For those interested in the backend details and agent functionalities, you can explore the main project repository [here](https://github.com/beloureiro/AI-Clinical-Advisory-Crew.git).
 
+You can also try out the live version of the Viewer here: [AI-CAC Viewer](https://ai-cac.streamlit.app/).
+
 ## What is the AI Clinical Advisory Crew?
 
 The AI Clinical Advisory Crew is an advanced, multi-agent system designed to revolutionize the healthcare experience by using Artificial Intelligence to analyze patient feedback, improve workflows, assess emotional states, and suggest improvements in communication and healthcare processes.
