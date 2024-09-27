@@ -1,6 +1,5 @@
 import streamlit as st
 from sections.feedback_analysis import patient_feedback_analyzer
-from sections.ai_agents import show_ai_agents
 from sections.overview import show_overview
 from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
 from sections.ai_crew import ai_crew_component  # Importa a nova função
