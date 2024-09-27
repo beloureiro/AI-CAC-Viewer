@@ -214,7 +214,7 @@ def ai_clinical_advisory_crew_tab():
     </script>
     '''
     
-    components.html(mermaid_chart, height=800)
+    components.html(mermaid_chart, height=600)
 
     # New section for side-by-side comparison
     st.markdown('<p class="subheader">Compare Plans Side-by-Side</p>', unsafe_allow_html=True)
@@ -235,6 +235,83 @@ def ai_clinical_advisory_crew_tab():
         st.markdown(f'<div class="plan-details">{get_plan_details(plan2)}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
+    # Add new section for the cycle of well-rated professionals
+    st.write("---")  # Usando st.write
+    st.markdown('<p class="subheader">Cycle of Well-Rated Professionals</p>', unsafe_allow_html=True)
+    
+    st.markdown("""
+    The AI Clinical Advisory Crew fosters a virtuous cycle of professional growth and patient satisfaction. This cycle illustrates the journey of both patients and healthcare professionals within the AI Clinical Advisory Crew framework:
+
+    1. **Patient Interaction**: The cycle begins with a patient seeking healthcare services.
+    
+    2. **Cycle of Self-Development**: Healthcare professionals engage in a continuous process of improvement:
+       - **Well-Rated Professionals**: These are the healthcare providers who have already achieved high ratings and success.
+       - **Mentorship**: Well-rated professionals provide mentorship and guidance to others.
+       - **Improved Professionals**: Through mentorship and the AI Clinical Advisory Crew's insights, professionals enhance their skills and practices.
+    
+    3. **Outcomes**:
+       - **Happy Patients**: The improved healthcare services lead to increased patient satisfaction.
+       - **Fully Booked Professionals**: As professionals improve and gain higher ratings, they attract more patients, leading to a thriving practice.
+
+    This cycle demonstrates how the AI Clinical Advisory Crew contributes to both professional growth and patient satisfaction, creating a win-win situation for all involved.
+    """)
+
+
+    # New Mermaid diagram
+    mermaid_chart = """
+    <div class="mermaid">
+    %%{init: {
+        'theme': 'dark',
+        'themeVariables': {
+            'primaryColor': '#1b9e4b',
+            'primaryTextColor': '#fff',
+            'primaryBorderColor': '#1b9e4b',
+            'lineColor': '#F8B229',
+            'secondaryColor': '#006100',
+            'tertiaryColor': '#fff'
+        }
+    }}%%
+    stateDiagram
+        direction TB
+
+        accTitle: Journey of Patient and Professionals
+        accDescr: This diagram illustrates the interaction between patients and health professionals in the AI Clinical Advisory Crew framework.
+
+        classDef patientState stroke:#1b9e4b,stroke-width:2px
+        classDef professionalState stroke:#1b9e4b,stroke-width:2px
+        classDef transitionState stroke:#1b9e4b,,stroke-width:1px
+
+        [*] --> Patient
+        Patient --> Cycle_of_Self_Development
+        state Cycle_of_Self_Development {
+            direction TB
+         
+                direction LR
+                Well_Rated_Professional --> Mentorship
+                Mentorship --> Improved_Professionals
+                Improved_Professionals --> Well_Rated_Professional
+        }
+        Cycle_of_Self_Development --> Happy_Patient
+        Cycle_of_Self_Development --> Fully_Booked_Professionals
+        Happy_Patient --> [*]
+        Fully_Booked_Professionals --> [*]
+        class Patient patientState
+        class Cycle_of_Self_Development transitionState
+        class Well_Rated_Professional, Mentorship, Comprehensive_Training_Process, Improved_Professionals professionalState
+        class Happy_Patient transitionState
+        class Fully_Booked_Professionals transitionState
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark'
+    });
+    </script>
+    """
+    
+    components.html(mermaid_chart, height=600)
+    
     st.markdown("<hr style='border-top: 1px solid #ddd;'>", unsafe_allow_html=True)
 
     st.markdown("""
