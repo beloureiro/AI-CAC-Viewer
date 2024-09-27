@@ -129,5 +129,14 @@ def ai_crew_component():
     else:
         st.warning("No AI agents found matching your search criteria.")
 
+    st.markdown("<hr style='border-top: 1px solid #ddd;'>", unsafe_allow_html=True)
+
+    # Add the powered by Inmotion link
+    st.markdown("""
+    <div style='text-align: center; margin-top: 20px;'>
+        <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
+    </div>
+    """, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     ai_crew_component()
