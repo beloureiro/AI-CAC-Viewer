@@ -88,7 +88,7 @@ def convert_time_to_seconds(time_str):
     return minutes * 60 + seconds
 
 def display_feedback(feedback, report_name, agents_data, total_execution_time):
-    st.subheader("Key Performance Indicators")
+    st.subheader("Indicators")
     patient_expert = next((agent for agent in agents_data if agent['agent_name'] == 'Patient Experience Expert'), None)
     if patient_expert:
         kpi_data = patient_expert['response']
@@ -101,12 +101,28 @@ def display_feedback(feedback, report_name, agents_data, total_execution_time):
             st.metric("Urgency Level", kpi_data.get('Urgency_Level_Patient_Experience_Expert', 'N/A'))
         with col4:
             execution_time_seconds = convert_time_to_seconds(total_execution_time)
-            st.metric("Crew Performance", f"{execution_time_seconds:.2f}s")
+            st.metric("Crew Performance Time", f"{execution_time_seconds:.2f}s")
     else:
         st.warning("Patient Experience Expert data not available")
 
-    st.subheader("Patient Feedback")
-    st.text_area("Feedback", feedback, height=150)
+
+    # Aplicar estilo ao campo de texto
+    st.markdown("""<style>
+    textarea {
+        background-color: #0e1117 !important;
+        color: #f7d800 !important;  /* Define a cor do texto */
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #1b9e4b;
+        font-style: italic;  /* Adiciona itálico ao texto */
+    }
+    </style>""", unsafe_allow_html=True)
+    
+    # Exibir a palavra "Feedback" com a cor desejada
+    #st.markdown("<span style='color: #f7d800;'>Feedback</span>", unsafe_allow_html=True)
+    
+    # Campo de texto para feedback
+    st.text_area("Feedback", feedback, height=130)  # O título do text_area é deixado vazio
 
 def display_agent_reports(data, mode, selected_item):
     st.subheader("Agent Reports")
@@ -188,27 +204,49 @@ def display_complete_txt_report(data):
     else:
         st.error("Selected feedback data not found.")
 
+# Custom CSS for dark theme and styling
+custom_css = """
+<style>
+body {
+    color: #E0E0E0;
+    background-color: #121212;
+}
+.stSelectbox [data-baseweb="select"] {
+    background-color: #0e1525;
+}
+.stSelectbox [data-baseweb="select"] > div {
+    background-color: #0e1525;
+    color: #E0E0E0;
+}
+</style>
+"""
+
 def patient_feedback_analyzer():
-    # Title and introduction
-    st.markdown('''
-        <h1 style="text-align: center;">
-            <span style="color: #1b9e4b; font-style: italic;">AI</span> 
-            <span style="color: white;">Clinical Advisory</span> 
-            <span style="color: #1b9e4b; font-style: italic;">Crew</span>
-        </h1>
-    ''', unsafe_allow_html=True)
+    # Apply custom CSS
+    st.markdown(custom_css, unsafe_allow_html=True)
     
-    # Centraliza o sub-título
-    st.markdown("<h2 style='text-align: center;'>Patient Feedback Analysis</h2>", unsafe_allow_html=True)
+    # Title and introduction
+    st.markdown("""
+        <div style='background-color: #0e1525; padding: 20px; border-radius: 10px;'>
+            <h1 style="text-align: center;">
+                <span style="color: #1b9e4b; font-style: italic;">AI</span> 
+                <span style="color: white;">Clinical Advisory</span> 
+                <span style="color: #1b9e4b; font-style: italic;">Crew</span>
+            </h1>
+            <h2 style='text-align: center;'>Patient Feedback Analysis</h2>
+        </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("---")
     
     # Adiciona o disclaimer
-    st.markdown('''
-    <p><strong>Disclaimer</strong></p>
-    <p>The analyses in this report were conducted by different LLM models in <em>training mode</em>, which take patient feedback as absolute truth. Feedback reflects the patient's individual perception and, in some cases, may not capture the full complexity of the situation, including institutional and contextual factors.</p>
-    <p>AI Clinical Advisory Crew framework, <em>beyond</em> providing technical analyses, acts as a strategic driver, steering managerial decisions across various operational areas.<br>
-    <em>The reader is responsible for validating the feasibility of the suggested actions and their alignment with stakeholder objectives.</em></p>
-    ''', unsafe_allow_html=True)
+    st.markdown("""
+        <p><strong style="color: #f7d800;">Disclaimer</strong></p>
+        <p>The analyses in this report were conducted by different LLM models in <em>training mode</em>, which take patient feedback as absolute truth. Feedback reflects the patient's individual perception and, in some cases, may not capture the full complexity of the situation, including institutional and contextual factors.</p>
+        <p>AI Clinical Advisory Crew framework, <em>beyond</em> providing technical analyses, acts as a strategic driver, steering managerial decisions across various operational areas.<br>
+        <em>The reader is responsible for validating the feasibility of the suggested actions and their alignment with stakeholder objectives.</em></p>
+    """, unsafe_allow_html=True)
+
     st.markdown("---")
     
     # Carrega os dados da pasta data_reports_json
@@ -300,5 +338,3 @@ def patient_feedback_analyzer():
         <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
     </div>
     """, unsafe_allow_html=True)
-
-    

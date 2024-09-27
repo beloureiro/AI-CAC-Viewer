@@ -9,10 +9,10 @@ body {
     background-color: #121212;
 }
 .stSelectbox [data-baseweb="select"] {
-    background-color: #1E1E1E;
+    background-color: #0e1525;
 }
 .stSelectbox [data-baseweb="select"] > div {
-    background-color: #1E1E1E;
+    background-color: #0e1525;
     color: #E0E0E0;
 }
 .plan-name {
@@ -95,15 +95,16 @@ Designed for professionals who, in addition to valuing mentorship, understand th
 def ai_clinical_advisory_crew_tab():
     # Apply custom CSS
     st.markdown(custom_css, unsafe_allow_html=True)
-
     # Updated main title styling
-    st.markdown('<h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span>: Advanced Analysis with Personalized Support</h1>', unsafe_allow_html=True)
-
     st.markdown("""
-    The AI Clinical Advisory Crew offers a service that combines detailed AI-driven analysis with three plans, each adding more value to healthcare professionals' performance. The process begins by gathering patient feedback and generating reports that identify opportunities for improving care, workflows, and communication.
-
-    The AI Clinical Advisory Crew fosters a cycle of self-development, where healthcare professionals use the provided insights and guidance to enhance their performance. As a result, the patient experience is enriched, attracting more patients and improving the professional's ratings. Over time, this progress can lead to the professional joining the Elite Health Mentors group, where they can mentor peers, be invited to give talks, and earn compensation for helping other professionals enhance their practices.
-    """)
+    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px;'>
+        <h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span>: Advanced Analysis with Personalized Support</h1>
+        <p>The AI Clinical Advisory Crew offers a service that combines detailed AI-driven analysis with three plans, each adding more value to healthcare professionals' performance. The process begins by gathering patient feedback and generating reports that identify opportunities for improving care, workflows, and communication.</p>
+        <p>The AI Clinical Advisory Crew fosters a cycle of self-development, where healthcare professionals use the provided insights and guidance to enhance their performance. As a result, the patient experience is enriched, attracting more patients and improving the professional's ratings. Over time, this progress can lead to the professional joining the Elite Health Mentors group, where they can mentor peers, be invited to give talks, and earn compensation for helping other professionals enhance their practices.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    # Linha Horizontal
+    st.markdown("---")
 
     # Updated subheader styling
     st.markdown('<p class="subheader">Available Plans</p>', unsafe_allow_html=True)
@@ -206,7 +207,7 @@ def ai_clinical_advisory_crew_tab():
             'signalColor': '#1b9e4b',
             'signalTextColor': '#FFFFFF',
             'labelTextColor': '#FFFFFF',
-            'noteBkgColor': '#262730',
+            'noteBkgColor': '#0e1525',
             'noteTextColor': '#FFFFFF'
         }}
     }}}}%%
@@ -292,7 +293,6 @@ def ai_clinical_advisory_crew_tab():
             'primaryColor': '#1b9e4b',
             'primaryTextColor': '#fff',
             'primaryBorderColor': '#1b9e4b',
-            'lineColor': '#F8B229',
             'secondaryColor': '#006100',
             'tertiaryColor': '#fff'
         }

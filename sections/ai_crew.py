@@ -10,8 +10,26 @@ def load_image(image_path):
         return None
 
 def ai_crew_component():
-    st.markdown('<h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span></h1>', unsafe_allow_html=True)
-    st.write("Meet our team of AI experts, ready to transform the healthcare experience.")
+    st.markdown("""
+        <div style='background-color: #0e1525; padding: 20px; border-radius: 10px;'>
+            <h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span></h1>
+            <p>Meet our team of AI experts, ready to transform the healthcare experience.</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # Custom CSS for the text input box
+    st.markdown("""
+        <style>
+        /* Customizing the input box for 'Search for AI agents' */
+        input {
+            background-color: #0e1117 !important;
+            color: white !important;
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #1b9e4b;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     # Add search functionality with placeholder
     search_query = st.text_input('Search for AI agents:', '', placeholder='Enter agent name')
@@ -20,7 +38,7 @@ def ai_crew_component():
     ai_agents = [
         {
             "name": "Patient Experience Expert (Phi Model)",
-            "image": "assets/agents/PatientExperienceExpert.jpeg",
+            "image": "assets/agents/PatientExperienceExpert.png",
             "description": "I'm the Patient Experience Expert. My job is to analyze patient feedback, pinpoint key issues, gauge emotional intensity, and assess the urgency of the concerns. I run on Microsoft's Phi-3.5 Mini, a 3.8 billion parameter model, which excels at reasoning and language understanding. My goal is to turn patient feedback into actionable insights that improve the overall healthcare experience. I look forward to enhancing your services."
         },
         {
@@ -69,7 +87,7 @@ def ai_crew_component():
         to { opacity: 1; }
     }
     .agent-container {
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
+        background: rgba(14, 21, 37, 0.5) /* 100% opaco */; /* Cor de fundo trocada para rgba com 80% de opacidade */
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 7px;
         padding: 20px;

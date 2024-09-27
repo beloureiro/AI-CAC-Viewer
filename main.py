@@ -1,4 +1,4 @@
-import streamlit as st # type: ignore
+import streamlit as st  # type: ignore
 from sections.feedback_analysis import patient_feedback_analyzer
 from sections.overview import show_overview
 from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
@@ -8,6 +8,34 @@ def main():
     # Configura a página (deve ser a primeira chamada do Streamlit)
     st.set_page_config(page_title="AI Clinical Advisory Crew", layout="wide")
     
+    # Custom CSS para alterar a cor do fundo do sidebar
+    st.markdown(
+        """
+        <style>
+        /* Custom sidebar background color */
+        [data-testid="stSidebar"] {
+            background-color: #0e1525;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Adiciona o logotipo e linha de separação
+    st.sidebar.markdown("""
+        <div style='background-color: #0e1117; padding: 5px; border-radius: 10px;'>
+            <h2 style="text-align: center; font-size: 14px;">
+                <span style="color: #1b9e4b; font-style: italic;">AI</span> 
+                <span style="color: white;">Clinical Advisory</span> 
+                <span style="color: #1b9e4b; font-style: italic;">Crew</span>
+            </h2>
+        </div>
+    """, unsafe_allow_html=True)
+
+
+    
+    st.sidebar.markdown("---")  # Adiciona uma linha de separação após o logotipo
+
     # Menu lateral para navegação
     tab = st.sidebar.radio("Select a Tab", ["Overview", "How It Works", "AI Agents", "Feedback Analysis"], index=0)  # Reordenado
     
@@ -25,8 +53,6 @@ def main():
         
         # Verifica se o analyzer não é None - Se necessário, apenas continue o fluxo sem exibir erro
         if analyzer is None:
-            # Remova a linha abaixo para não exibir a mensagem de erro
-            # st.error("An error occurred while loading the feedback analyzer. Please check the data.")
             st.stop()  # Para a execução da página se realmente for necessário
 
         # Escolha de modo de visualização
