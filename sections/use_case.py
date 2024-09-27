@@ -1,5 +1,5 @@
-import streamlit as st
-import streamlit.components.v1 as components
+import streamlit as st # type: ignore
+import streamlit.components.v1 as components # type: ignore
 
 # Custom CSS for dark theme and styling
 custom_css = """

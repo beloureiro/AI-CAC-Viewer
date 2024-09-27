@@ -1,7 +1,7 @@
-import streamlit as st
+import streamlit as st # type: ignore
 import os
 import json
-import pandas as pd
+import pandas as pd # type: ignore
 import re
 
 # Define the field equivalence dictionary

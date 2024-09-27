@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st # type: ignore
 from sections.feedback_analysis import patient_feedback_analyzer
 from sections.overview import show_overview
 from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
