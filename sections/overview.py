@@ -2,7 +2,7 @@ import streamlit as st # type: ignore
 
 def show_overview():
     st.markdown("""
-    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px;'>
+    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9;'>  <!-- Alterado para incluir a cor desejada -->
     <h1><span style="color: #1b9e4b; font-style: italic;">AI</span><span style="color: #FFFFFF;"> Clinical Advisory </span><span style="color: #1b9e4b; font-style: italic;">Crew</span></h1>
     <p>Welcome to the <strong>AI Clinical Advisory Crew Viewer</strong>, the front-end platform designed to showcase the powerful AI-driven analysis of healthcare feedback. This Viewer app provides an intuitive way to explore the capabilities of the AI Clinical Advisory Crew, focusing on demonstrating the outputs, insights, and plans offered by the system.</p>
     <p>This Viewer is <strong>not the backend</strong> but rather a tool for users to visualize and interact with the AI agents' outputs. For those interested in the backend details and agent functionalities, you can explore the main project repository <a href="https://github.com/beloureiro/AI-Clinical-Advisory-Crew.git" style='color: #1b9e4b;'>here</a>.</p>

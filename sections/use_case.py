@@ -97,7 +97,7 @@ def ai_clinical_advisory_crew_tab():
     st.markdown(custom_css, unsafe_allow_html=True)
     # Updated main title styling
     st.markdown("""
-    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px;'>
+    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9;'>  <!-- Alterado para incluir a cor desejada -->
         <h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span>: Advanced Analysis with Personalized Support</h1>
         <p>The AI Clinical Advisory Crew offers a service that combines detailed AI-driven analysis with three plans, each adding more value to healthcare professionals' performance. The process begins by gathering patient feedback and generating reports that identify opportunities for improving care, workflows, and communication.</p>
         <p>The AI Clinical Advisory Crew fosters a cycle of self-development, where healthcare professionals use the provided insights and guidance to enhance their performance. As a result, the patient experience is enriched, attracting more patients and improving the professional's ratings. Over time, this progress can lead to the professional joining the Elite Health Mentors group, where they can mentor peers, be invited to give talks, and earn compensation for helping other professionals enhance their practices.</p>

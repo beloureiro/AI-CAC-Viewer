@@ -199,6 +199,18 @@ def display_complete_txt_report(data):
     if selected_data:
         report_name = os.path.splitext(selected_data['name'])[0]
         txt_report = read_txt_report(report_name)
+        
+        # Adiciona estilo ao campo de texto
+        st.markdown("""<style>
+        textarea {
+            background-color: #0e1525 !important;  /* Cor de fundo */
+            color: #ffffff !important;  /* Cor do texto */
+            border-radius: 5px;
+            padding: 10px !important;
+            border: 2px solid #1b9e4b !important;  /* Borda */
+        }
+        </style>""", unsafe_allow_html=True)
+        
         st.text_area("TXT Report", txt_report, height=600)
         download_txt_report(report_name)
     else:

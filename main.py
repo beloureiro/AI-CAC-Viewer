@@ -24,7 +24,7 @@ def main():
     # Adiciona o logotipo e linha de separação
     st.sidebar.markdown("""
         <div style='background-color: #0e1117; padding: 5px; border-radius: 10px;'>
-            <h2 style="text-align: center; font-size: 14px;">
+            <h2 style="text-align: center; font-size: 17px;">
                 <span style="color: #1b9e4b; font-style: italic;">AI</span> 
                 <span style="color: white;">Clinical Advisory</span> 
                 <span style="color: #1b9e4b; font-style: italic;">Crew</span>
