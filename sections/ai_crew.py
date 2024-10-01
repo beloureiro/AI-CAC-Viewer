@@ -54,7 +54,7 @@ def ai_crew_component():
         },
         {
             "name": "Health & IT Process Expert (Llama 3.2 Model)",
-            "image": "assets/agents/HealthAndITProcessExpert2.jpeg",
+            "image": "assets/agents/HealthAndITProcessExpert2.png",
             "description": "I'm the Health & IT Process Expert. My role is to map out the entire patient journey using BPMN (Business Process Model and Notation) to identify inefficiencies and suggest process improvements. I operate using Meta's Llama 3.2, a cutting-edge model with 3 billion parameters. The Q5_K_S quantization ensures optimal memory efficiency without sacrificing performance. My goal is to streamline healthcare workflows and integrate advanced technologies to enhance patient care and operational efficiency. I am confident that my insights will help you achieve tangible improvements in healthcare delivery."
         },
         {
