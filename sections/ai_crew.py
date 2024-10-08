@@ -11,10 +11,7 @@ def load_image(image_path):
 
 def ai_crew_component():
     st.markdown("""
-        <div style='background-color: #0e1525; padding: 20px; border-radius: 10px;'>
-            <h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span></h1>
-            <p>Meet our team of AI experts, ready to transform the healthcare experience.</p>
-        </div>
+    <h1 style='color: #1b9e4b;'>Meet our team of AI experts, ready to transform the healthcare experience.</h1>
     """, unsafe_allow_html=True)
 
     # Custom CSS for the text input box
@@ -147,7 +144,6 @@ def ai_crew_component():
         line-height: 1.5;
     }
     .stApp {
-        background-color: #0e1117;
         color: #ffffff;
     }
     .stApp h1 {

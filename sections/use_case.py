@@ -1,5 +1,5 @@
-import streamlit as st # type: ignore
-import streamlit.components.v1 as components # type: ignore
+import streamlit as st  # type: ignore
+import streamlit.components.v1 as components  # type: ignore
 
 # Custom CSS for dark theme and styling
 custom_css = """
@@ -41,6 +41,7 @@ body {
 }
 </style>
 """
+
 
 def get_plan_details(plan):
     details = {
@@ -114,22 +115,22 @@ Additionally, this plan introduces the AI-SkillsAdvisor, an AI-powered chatbot a
     }
     return details[plan]
 
+
 def ai_clinical_advisory_crew_tab():
     # Apply custom CSS
     st.markdown(custom_css, unsafe_allow_html=True)
     # Updated main title styling
     st.markdown("""
-    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9;'>  <!-- Alterado para incluir a cor desejada -->
-        <h1><span style="color: #1b9e4b;"><i>AI</i></span> Clinical Advisory <span style="color: #1b9e4b;"><i>Crew</i></span>: Advanced Analysis with Personalized Support</h1>
-        <p>The AI Clinical Advisory Crew offers a service that combines detailed AI-driven analysis with three plans, each adding more value to healthcare professionals' performance. The process begins by gathering patient feedback and generating reports that identify opportunities for improving care, workflows, and communication.</p>
-        <p>The AI Clinical Advisory Crew fosters a cycle of self-development, where healthcare professionals use the provided insights and guidance to enhance their performance. As a result, the patient experience is enriched, attracting more patients and improving the professional's ratings. Over time, this progress can lead to the professional joining the Elite Health Mentors group, where they can mentor peers, be invited to give talks, and earn compensation for helping other professionals enhance their practices.</p>
-    </div>
+    <h1 style='color: #ffffff;'>Advanced Analysis with Personalized Support</h1>
+    <p style='color: #ffffff;'>The AI Clinical Advisory Crew offers four plans designed to support healthcare professionals. The Insight Plan provides detailed patient feedback and reports, allowing professionals to identify areas for self-improvement. The Mentor Plan includes personalized guidance from experienced mentors to help implement strategic changes. The Mentor & Care Plan adds psychological support for patients, ensuring emotional support and improving patient experience. The Elite AI-Powered Care Plan combines insights, mentorship, psychological care, and 24/7 access to the AI-SkillsAdvisor chatbot, offering continuous AI-driven guidance for growth and patient care excellence.</p>
     """, unsafe_allow_html=True)
+
     # Linha Horizontal
-    st.markdown("---")
+    # st.markdown("---")
 
     # Updated subheader styling
-    st.markdown('<p class="subheader">Available Plans</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subheader">Available Plans</p>',
+                unsafe_allow_html=True)
 
     # Updated list of plans
     plans = ["Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"]
@@ -137,11 +138,14 @@ def ai_clinical_advisory_crew_tab():
     # Detailed breakdown of each plan with expandable sections
     for plan in plans:
         with st.expander(plan + " Plan", expanded=(plan == "Insight")):
-            st.markdown(f'<p class="expander-header">{plan} Plan</p>', unsafe_allow_html=True)
-            st.markdown(f'<div class="plan-details">{get_plan_details(plan)}</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<p class="expander-header">{plan} Plan</p>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="plan-details">{get_plan_details(plan)}</div>', unsafe_allow_html=True)
 
     # Plan Diagrams section
-    st.markdown('<p class="subheader">Plan Workflow Diagrams</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subheader">Plan Workflow Diagrams</p>',
+                unsafe_allow_html=True)
 
     selected_plan = st.selectbox(
         "Select a Plan to view its diagram",
@@ -292,35 +296,41 @@ def ai_clinical_advisory_crew_tab():
     window.addEventListener('resize', adjustMermaidHeight);
     </script>
     '''
-    
+
     components.html(mermaid_chart, height=diagram_heights[selected_plan])
     # Linha Horizontal
     st.markdown("---")
 
     # New section for side-by-side comparison
-    st.markdown('<p class="subheader">Compare Plans Side-by-Side</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subheader">Compare Plans Side-by-Side</p>',
+                unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown('<div class="comparison-column">', unsafe_allow_html=True)
-        plan1 = st.selectbox("Select first plan for comparison", ["Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"], key="plan1")
+        plan1 = st.selectbox("Select first plan for comparison", [
+                             "Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"], key="plan1")
         st.markdown(f"<h3>{plan1} Plan</h3>", unsafe_allow_html=True)
-        st.markdown(f'<div class="plan-details">{get_plan_details(plan1)}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="plan-details">{get_plan_details(plan1)}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
         st.markdown('<div class="comparison-column">', unsafe_allow_html=True)
-        plan2 = st.selectbox("Select second plan for comparison", ["Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"], key="plan2")
+        plan2 = st.selectbox("Select second plan for comparison", [
+                             "Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"], key="plan2")
         st.markdown(f"<h3>{plan2} Plan</h3>", unsafe_allow_html=True)
-        st.markdown(f'<div class="plan-details">{get_plan_details(plan2)}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="plan-details">{get_plan_details(plan2)}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Linha Horizontal
     st.markdown("---")
     # Add new section for the cycle of well-rated professionals
-    st.markdown('<p class="subheader">Cycle of Well-Rated Professionals</p>', unsafe_allow_html=True)
-    
+    st.markdown('<p class="subheader">Cycle of Well-Rated Professionals</p>',
+                unsafe_allow_html=True)
+
     st.markdown("""
     The AI Clinical Advisory Crew fosters a virtuous cycle of professional growth and patient satisfaction. This cycle illustrates the journey of both patients and healthcare professionals within the AI Clinical Advisory Crew framework:
 
@@ -337,7 +347,6 @@ def ai_clinical_advisory_crew_tab():
 
     This cycle demonstrates how the AI Clinical Advisory Crew contributes to both professional growth and patient satisfaction, creating a win-win situation for all involved.
     """, unsafe_allow_html=True)
-
 
     # New Mermaid diagram
     mermaid_chart = """
@@ -390,16 +399,18 @@ def ai_clinical_advisory_crew_tab():
     });
     </script>
     """
-    
+
     components.html(mermaid_chart, height=500)
-    
-    st.markdown("<hr style='border-top: 1px solid #ddd;'>", unsafe_allow_html=True)
+
+    st.markdown("<hr style='border-top: 1px solid #ddd;'>",
+                unsafe_allow_html=True)
 
     st.markdown("""
     <div style='text-align: center; margin-top: 20px;'>
         <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
     </div>
     """, unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
     ai_clinical_advisory_crew_tab()

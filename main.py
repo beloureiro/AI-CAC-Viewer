@@ -3,6 +3,7 @@ from sections.feedback_analysis import patient_feedback_analyzer
 from sections.overview import show_overview
 from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
 from sections.ai_crew import ai_crew_component  # Importa a nova função
+from sections.rag_bot import rag_bot_component  # Importa a nova função do rag_bot.py
 
 def main():
     # Configura a página (deve ser a primeira chamada do Streamlit)
@@ -23,7 +24,7 @@ def main():
 
     # Adiciona o logotipo e linha de separação
     st.sidebar.markdown("""
-        <div style='background-color: #0e1117; padding: 5px; border-radius: 10px;'>
+        <div style='border: 2px solid #1c2333; padding: 5px; border-radius: 10px;'>
             <h2 style="text-align: center; font-size: 17px;">
                 <span style="color: #1b9e4b; font-style: italic;">AI</span> 
                 <span style="color: white;">Clinical Advisory</span> 
@@ -32,12 +33,10 @@ def main():
         </div>
     """, unsafe_allow_html=True)
 
-
-    
     st.sidebar.markdown("---")  # Adiciona uma linha de separação após o logotipo
 
     # Menu lateral para navegação
-    tab = st.sidebar.radio("Select a Tab", ["Overview", "How It Works", "AI Agents", "Feedback Analysis"], index=0)  # Reordenado
+    tab = st.sidebar.radio("Select a Tab", ["Overview", "How It Works", "AI Agents", "Feedback Analysis", "AI-Skills Advisor"], index=0)  # Adicionada nova aba
     
     # Navegação entre as seções
     if tab == "Overview":
@@ -47,7 +46,6 @@ def main():
     elif tab == "AI Agents":
         ai_crew_component()  # Chama a função da nova aba
     elif tab == "Feedback Analysis":
-          
         # Instancia o analisador de feedback
         analyzer = patient_feedback_analyzer()
         
@@ -82,8 +80,8 @@ def main():
         elif view_mode == "Complete Report (TXT)":
             display_complete_txt_report(analyzer)
 
-    elif tab == "Plans & Use Case":  # Alterado o nome da condição
-        ai_clinical_advisory_crew_tab()  # Chama a função da nova aba
+    elif tab == "AI-Skills Advisor":  # Nova aba adicionada
+        rag_bot_component()  # Chama a função do rag_bot.py
 
 # Função para exibir feedback e KPIs
 def display_feedback(feedback_data, analyzer):

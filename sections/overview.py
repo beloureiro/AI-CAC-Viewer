@@ -1,53 +1,79 @@
 import streamlit as st  # type: ignore
 
-
 def show_overview():
     st.markdown("""
-    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9;'>
-    <h1><span style="color: #1b9e4b; font-style: italic;">AI</span><span style="color: #FFFFFF;"> Clinical Advisory </span><span style="color: #1b9e4b; font-style: italic;">Crew</span></h1>
-    <p>Welcome to the <strong>AI Clinical Advisory Crew Viewer</strong>, the front-end platform designed to showcase the powerful AI-driven analysis of healthcare feedback. This Viewer app provides an intuitive way to explore the capabilities of the AI Clinical Advisory Crew, focusing on demonstrating the outputs, insights, and plans offered by the system.</p>
-    <p>This Viewer is <strong>not the backend</strong> but rather a tool for users to visualize and interact with the AI agents' outputs. For those interested in the backend details and agent functionalities, you can explore the main project repository <a href="https://github.com/beloureiro/AI-CAC-V1.3" style='color: #1b9e4b;'>here</a>.</p>
-    <p>At the heart of this system lies its dynamic flexibility: it navigates across a suite of <strong>Large Language Models (LLMs)</strong> to determine the optimal AI configuration for each specific task. By utilizing models like Meta's LLaMA, NousResearch's Hermes, Microsoft's Phi, and others, the system continuously tests and refines outputs to ensure that the best-suited AI crew is selected to address the task at hand. This multi-agent approach allows for the combination of strengths across different models, ensuring comprehensive, data-driven analysis that adapts to the unique needs of your healthcare environment.</p>
-    <p><strong>A major benefit</strong> of this system is that it operates using <strong>local LLMs</strong>, ensuring <strong>maximum data security</strong> by processing all information internally, without reliance on third-party APIs. This also delivers <strong>significant cost savings</strong>, as there is no need for external API usage, keeping operational costs low while maintaining full control over data privacy.</p>
+    <h1>
+        <span style="color: #1b9e4b; font-style: italic; text-shadow: 1px 1px 2px #000000;">AI</span> 
+        Clinical Advisory 
+        <span style="color: #1b9e4b; font-style: italic; text-shadow: 1px 1px 2px #000000;">Crew</span>
+    </h1>
+    <p>Welcome to the <strong>AI Clinical Advisory Crew</strong>, a platform combining artificial intelligence with healthcare expertise to elevate care standards. This WebApp lets you explore the framework, access insights from AI agents, review workflows, learn about the agents and available plans, and try out a chatbot demo in development mode. For those interested in the technical backend, you can check out the full repository on GitHub <a href="https://github.com/beloureiro/AI-CAC-V1.3" style='color: #1b9e4b; text-shadow: 1px 1px 2px #000000;'>here</a>.</p>
+    <p>Our system uses a robust <strong>AI-Driven Problem Solving</strong> strategy, featuring AI models from top tech companies like Anthropic, OpenAI, Mistral AI, Meta, Google, Microsoft, Tencent, EleutherAI, Stability AI, and other open-source collaborators. This enables streamlined workflows and innovation in the healthcare setting.</p>
+    <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
+    """, unsafe_allow_html=True)
+
+
+    st.markdown("""
+    <h2>Value Proposition</h2>
+    <p>The <strong>AI Clinical Advisory Crew</strong> is here to drive self-improvement for healthcare professionals, while enhancing patient care. Designed for freelancers, clinics, and hospitals, our framework combines direct patient feedback with technical insights from AI and industry experts, fostering continuous improvement in care quality.</p>
     
-    <h2>Our AI team consists of seven dedicated agents:</h2>
+    <div style='background-color: #1c2333; padding: 15px 10px; border-radius: 8px; text-align: center; color: #FFFFFF; margin-top: 5px;'>
+        <p style='font-size: 1.2em; margin: 0; line-height: 1.5em;'><strong>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">FEEDBACK</span>
+            <span>&nbsp; + &nbsp; </span>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">TECHNICAL DIAGNOSIS</span>
+            <span>&nbsp; = &nbsp; </span>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">PERFORMANCE PATH</span>
+            <span>&nbsp; = &nbsp; </span>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">QUALITY CARE</span>
+            <span>&nbsp; = &nbsp; </span>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">SATISFIED PATIENTS</span>
+            <span>&nbsp; = &nbsp; </span>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">FULL SCHEDULE</span>
+            <span>&nbsp; = &nbsp; </span>
+            <span style="color: #1b9e4b; text-shadow: 1px 1px 2px #000000;">PROFESSIONAL RECOGNITION</span>
+        </strong></p>
+    </div>
+
+    <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <h2>Our AI Team Includes Eight Key Agents:</h2>
     <ol>
-        <li><strong>Patient Experience Expert (Phi Model)</strong>: Analyzes patient feedback, identifies key issues, and gauges emotional intensity to enhance the overall healthcare experience.</li>
-        <li><strong>Health & IT Process Expert (Gemma Model)</strong>: Maps the patient journey, identifies inefficiencies, and recommends improvements in healthcare workflows.</li>
-        <li><strong>Clinical Psychologist (OpenHermes Model)</strong>: Specializes in analyzing emotional states and crafting personalized psychological support strategies.</li>
-        <li><strong>Communication Expert (Mistral Model)</strong>: Evaluates communication quality between healthcare professionals and patients, suggesting improvements for clarity and empathy.</li>
-        <li><strong>Manager and Advisor (Qwen Model)</strong>: Consolidates feedback from all agents, producing actionable reports with strategic recommendations.</li>
-        <li><strong>Data Analyst (LLaVA Model)</strong>: Processes and analyzes large datasets to extract valuable insights from patient feedback and healthcare operations data.</li>
-        <li><strong>Output Consistency Agent (LLaMA Model)</strong>: Harmonizes outputs from all agents, ensuring consistency in structure, grammar, and formatting.</li>
+        <li><strong>Patient Experience Expert</strong>: Analyzes patient feedback, pinpoints key issues, and evaluates emotional intensity to improve the overall experience.</li>
+        <li><strong>Health & IT Process Expert</strong>: Maps out the patient journey, finds inefficiencies, and suggests workflow improvements.</li>
+        <li><strong>Clinical Psychologist</strong>: Specializes in understanding emotional states and creating customized psychological support strategies.</li>
+        <li><strong>Communication Expert</strong>: Assesses communication quality between healthcare providers and patients, offering tips for better clarity and empathy.</li>
+        <li><strong>Manager and Advisor</strong>: Collects feedback from all agents, providing actionable reports with strategic insights.</li>
+        <li><strong>Data Analyst</strong>: Analyzes large datasets to derive meaningful insights from patient feedback and healthcare data.</li>
+        <li><strong>Output Consistency Agent</strong>: Ensures consistent structure, grammar, and formatting across all outputs.</li>
+        <li><strong>AI-SkillsAdvisor</strong>: A 24/7 chatbot providing real-time, personalized advice for ongoing professional development and patient care improvement.</li>
     </ol>
-    </div>
+    <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
     """, unsafe_allow_html=True)
 
-    # New section highlighting the AI-SkillsAdvisor and comprehensive care plans
     st.markdown("""
-    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9; margin-top: 20px;'>
-    <h2>Comprehensive Care Plans</h2>
-    <p>Our AI Clinical Advisory Crew offers a range of plans tailored to meet the diverse needs of healthcare professionals:</p>
+    <h2>Available Plans</h2>
     <ul>
-        <li><strong>Insight Plan</strong>: For professionals who prefer data-driven, self-guided improvement.</li>
-        <li><strong>Mentor Plan</strong>: Offering personalized mentorship from Elite Health Mentors.</li>
-        <li><strong>Mentor & Care Plan</strong>: Combining mentorship with psychological support for patients.</li>
-        <li><strong>Elite AI-Powered Care Plan</strong>: Our most comprehensive offering, including all previous benefits plus the innovative AI-SkillsAdvisor.</li>
+        <li><strong>Insight Plan</strong>: Provides detailed reports and analyses to support data-driven improvements.</li>
+        <li><strong>Mentor Plan</strong>: Offers one-on-one mentorship from experienced professionals to guide your growth.</li>
+        <li><strong>Mentor & Care Plan</strong>: Combines expert mentorship with psychological support for a more human approach to care.</li>
+        <li><strong>Elite AI-Powered Care Plan</strong>: Includes all benefits plus 24/7 access to the AI-SkillsAdvisor chatbot for continuous support.</li>
     </ul>
-    <p>The <strong>AI-SkillsAdvisor</strong>, a key feature of our Elite AI-Powered Care Plan, is a 24/7 available chatbot that provides personalized advice and tips based on real-time patient feedback and AI Clinical Advisory Crew recommendations. This cutting-edge tool ensures continuous learning and improvement opportunities for healthcare professionals, enhancing patient care and professional development.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-    <div style='background-color: #083318; padding: 10px; border-radius: 5px; color: white;'>
-    <strong>Key Benefits:</strong><br>
-    - Operates using local LLMs, ensuring maximum data security<br>
-    - Processes all information internally, without reliance on third-party APIs<br>
-    - Delivers significant cost savings by eliminating the need for external API usage<br>
-    - Maintains full control over data privacy
-    </div>
+    <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
     """, unsafe_allow_html=True)
 
-    # Add the powered by Inmotion link
+    st.markdown("""
+    <strong>Key Benefits:</strong><br>
+    - Runs on local AI models, maximizing data security<br>
+    - Handles all processing internally, avoiding third-party APIs<br>
+    - Reduces costs by eliminating external API reliance<br>
+    - Maintains full control over data privacy<br>
+    - Supports continuous skill improvement and quality enhancement
+    <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
+    """, unsafe_allow_html=True)
+
     st.markdown("""
     <div style='text-align: center; margin-top: 20px;'>
         <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
