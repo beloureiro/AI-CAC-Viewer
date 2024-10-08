@@ -88,6 +88,28 @@ Benefits:
 - Enhance your practice with expert-validated insights
 
 Designed for professionals who, in addition to valuing mentorship, understand that processes can fail but remain committed to showing their dedication to patient care, regardless of any process flaws or daily stressors. In this plan, qualified psychologists provide emotional support to patients by phone, validate the AI insights, and adjust the reports, which are then used by mentors to develop the mentoring plan, ensuring that care is comprehensive and humanized.
+''',
+        "Elite AI-Powered Care": '''
+Who it's for: Healthcare professionals seeking the most comprehensive, AI-enhanced support system for continuous improvement and patient care excellence.
+
+Key Features:
+- All benefits from Insight, Mentor, and Mentor & Care plans
+- 24/7 access to AI-SkillsAdvisor chatbot for personalized advice
+- Real-time tips based on patient feedback and AI Clinical Advisory Crew recommendations
+- Continuous learning and improvement opportunities
+
+Benefits:
+- Comprehensive support: Combine data-driven insights, expert mentorship, and psychological care
+- Round-the-clock improvement: Receive instant, personalized guidance at any time
+- Holistic patient care: Provide emotional support to patients while continuously enhancing your skills
+- AI-powered growth: Leverage cutting-edge AI technology to accelerate your professional development
+
+The Elite AI-Powered Care plan offers the ultimate package for healthcare professionals committed to excellence. It includes all the benefits of the previous plans:
+1. Detailed patient feedback analysis and self-guided improvement strategies (from Insight plan)
+2. Personalized mentorship from Elite Health Mentors (from Mentor plan)
+3. Emotional support for patients provided by qualified psychologists (from Mentor & Care plan)
+
+Additionally, this plan introduces the AI-SkillsAdvisor, an AI-powered chatbot available 24/7. This innovative tool provides personalized advice and tips based on real-time patient feedback and recommendations from the AI Clinical Advisory Crew. By combining human expertise with advanced AI capabilities, this plan offers unparalleled support for continuous learning, improvement, and patient care enhancement.
 '''
     }
     return details[plan]
@@ -109,8 +131,11 @@ def ai_clinical_advisory_crew_tab():
     # Updated subheader styling
     st.markdown('<p class="subheader">Available Plans</p>', unsafe_allow_html=True)
 
+    # Updated list of plans
+    plans = ["Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"]
+
     # Detailed breakdown of each plan with expandable sections
-    for plan in ["Insight", "Mentor", "Mentor & Care"]:
+    for plan in plans:
         with st.expander(plan + " Plan", expanded=(plan == "Insight")):
             st.markdown(f'<p class="expander-header">{plan} Plan</p>', unsafe_allow_html=True)
             st.markdown(f'<div class="plan-details">{get_plan_details(plan)}</div>', unsafe_allow_html=True)
@@ -120,12 +145,12 @@ def ai_clinical_advisory_crew_tab():
 
     selected_plan = st.selectbox(
         "Select a Plan to view its diagram",
-        options=["Insight", "Mentor", "Mentor & Care"],
+        options=plans,
         index=0,
         key="plan_selector"
     )
 
-    # Mermaid diagram display
+    # Updated Mermaid diagrams dictionary
     mermaid_diagrams = {
         "Insight": """
         sequenceDiagram
@@ -187,14 +212,44 @@ def ai_clinical_advisory_crew_tab():
             Note over Mentors: Develop personalized coaching strategies.
             
             Mentors-->>-Healthcare_Professionals: Conduct mentorship sessions with professionals.
+        """,
+        "Elite AI-Powered Care": """
+        sequenceDiagram
+            autonumber
+            actor Patient as Patient
+            actor Healthcare_Professionals as Healthcare Professionals
+            participant AI_Clinical_Advisory_Crew as AI Clinical Advisory Crew
+            
+            Patient->>+AI_Clinical_Advisory_Crew: Provides Feedback
+            Note over AI_Clinical_Advisory_Crew: Patient Experience Expert
+            Note over AI_Clinical_Advisory_Crew: Health & IT Process Expert
+            Note over AI_Clinical_Advisory_Crew: Clinical Psychologist
+            Note over AI_Clinical_Advisory_Crew: Communication Expert
+            Note over AI_Clinical_Advisory_Crew: Manager and Advisor
+
+            create participant Psychologist as Psychologist
+            AI_Clinical_Advisory_Crew->>+Psychologist: Connects with Psychologist
+            Psychologist->>+Patient: Provides Emotional Support to the Patient
+            Psychologist-->>-AI_Clinical_Advisory_Crew: Validates Report
+
+            create participant Mentors as Elite Mentors
+            AI_Clinical_Advisory_Crew->>+Mentors: Validated by Psychologist, updated by Crew, then sends to Elite Mentors
+            Note over Mentors: Develop personalized coaching strategies.
+            
+            Mentors-->>-Healthcare_Professionals: Conduct mentorship sessions with professionals.
+
+            create participant AI_SkillsAdvisor as AI-SkillsAdvisor
+            AI_Clinical_Advisory_Crew->>+AI_SkillsAdvisor: Sends reports 
+            AI_SkillsAdvisor-->>Healthcare_Professionals: Provides 24/7 personalized advice and tips based on patient feedback and AI Clinical Advisory Crew recommendations
         """
     }
 
-    # Set initial heights for each plan
+    # Updated diagram heights
     diagram_heights = {
         "Insight": 600,
         "Mentor": 700,
-        "Mentor & Care": 800
+        "Mentor & Care": 800,
+        "Elite AI-Powered Care": 900
     }
 
     mermaid_chart = f'''
@@ -249,14 +304,14 @@ def ai_clinical_advisory_crew_tab():
 
     with col1:
         st.markdown('<div class="comparison-column">', unsafe_allow_html=True)
-        plan1 = st.selectbox("Select first plan for comparison", ["Insight", "Mentor", "Mentor & Care"], key="plan1")
+        plan1 = st.selectbox("Select first plan for comparison", ["Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"], key="plan1")
         st.markdown(f"<h3>{plan1} Plan</h3>", unsafe_allow_html=True)
         st.markdown(f'<div class="plan-details">{get_plan_details(plan1)}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
         st.markdown('<div class="comparison-column">', unsafe_allow_html=True)
-        plan2 = st.selectbox("Select second plan for comparison", ["Insight", "Mentor", "Mentor & Care"], key="plan2")
+        plan2 = st.selectbox("Select second plan for comparison", ["Insight", "Mentor", "Mentor & Care", "Elite AI-Powered Care"], key="plan2")
         st.markdown(f"<h3>{plan2} Plan</h3>", unsafe_allow_html=True)
         st.markdown(f'<div class="plan-details">{get_plan_details(plan2)}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)

@@ -1,11 +1,12 @@
-import streamlit as st # type: ignore
+import streamlit as st  # type: ignore
+
 
 def show_overview():
     st.markdown("""
-    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9;'>  <!-- Alterado para incluir a cor desejada -->
+    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9;'>
     <h1><span style="color: #1b9e4b; font-style: italic;">AI</span><span style="color: #FFFFFF;"> Clinical Advisory </span><span style="color: #1b9e4b; font-style: italic;">Crew</span></h1>
     <p>Welcome to the <strong>AI Clinical Advisory Crew Viewer</strong>, the front-end platform designed to showcase the powerful AI-driven analysis of healthcare feedback. This Viewer app provides an intuitive way to explore the capabilities of the AI Clinical Advisory Crew, focusing on demonstrating the outputs, insights, and plans offered by the system.</p>
-    <p>This Viewer is <strong>not the backend</strong> but rather a tool for users to visualize and interact with the AI agents' outputs. For those interested in the backend details and agent functionalities, you can explore the main project repository <a href="https://github.com/beloureiro/AI-Clinical-Advisory-Crew.git" style='color: #1b9e4b;'>here</a>.</p>
+    <p>This Viewer is <strong>not the backend</strong> but rather a tool for users to visualize and interact with the AI agents' outputs. For those interested in the backend details and agent functionalities, you can explore the main project repository <a href="https://github.com/beloureiro/AI-CAC-V1.3" style='color: #1b9e4b;'>here</a>.</p>
     <p>At the heart of this system lies its dynamic flexibility: it navigates across a suite of <strong>Large Language Models (LLMs)</strong> to determine the optimal AI configuration for each specific task. By utilizing models like Meta's LLaMA, NousResearch's Hermes, Microsoft's Phi, and others, the system continuously tests and refines outputs to ensure that the best-suited AI crew is selected to address the task at hand. This multi-agent approach allows for the combination of strengths across different models, ensuring comprehensive, data-driven analysis that adapts to the unique needs of your healthcare environment.</p>
     <p><strong>A major benefit</strong> of this system is that it operates using <strong>local LLMs</strong>, ensuring <strong>maximum data security</strong> by processing all information internally, without reliance on third-party APIs. This also delivers <strong>significant cost savings</strong>, as there is no need for external API usage, keeping operational costs low while maintaining full control over data privacy.</p>
     
@@ -22,6 +23,20 @@ def show_overview():
     </div>
     """, unsafe_allow_html=True)
 
+    # New section highlighting the AI-SkillsAdvisor and comprehensive care plans
+    st.markdown("""
+    <div style='background-color: #0e1525; padding: 20px; border-radius: 10px; color: #c9c9c9; margin-top: 20px;'>
+    <h2>Comprehensive Care Plans</h2>
+    <p>Our AI Clinical Advisory Crew offers a range of plans tailored to meet the diverse needs of healthcare professionals:</p>
+    <ul>
+        <li><strong>Insight Plan</strong>: For professionals who prefer data-driven, self-guided improvement.</li>
+        <li><strong>Mentor Plan</strong>: Offering personalized mentorship from Elite Health Mentors.</li>
+        <li><strong>Mentor & Care Plan</strong>: Combining mentorship with psychological support for patients.</li>
+        <li><strong>Elite AI-Powered Care Plan</strong>: Our most comprehensive offering, including all previous benefits plus the innovative AI-SkillsAdvisor.</li>
+    </ul>
+    <p>The <strong>AI-SkillsAdvisor</strong>, a key feature of our Elite AI-Powered Care Plan, is a 24/7 available chatbot that provides personalized advice and tips based on real-time patient feedback and AI Clinical Advisory Crew recommendations. This cutting-edge tool ensures continuous learning and improvement opportunities for healthcare professionals, enhancing patient care and professional development.</p>
+    </div>
+    """, unsafe_allow_html=True)
     st.markdown("""
     <div style='background-color: #083318; padding: 10px; border-radius: 5px; color: white;'>
     <strong>Key Benefits:</strong><br>

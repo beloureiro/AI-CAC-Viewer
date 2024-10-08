@@ -128,3 +128,5 @@ def display_complete_txt_report(analyzer):
 
 if __name__ == "__main__":
     main()
+
+# to run the app: streamlit run main.py
