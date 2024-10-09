@@ -57,12 +57,13 @@ def show_overview():
     st.markdown("""
     <h2>Available Plans</h2>
     <ul>
-        <li><strong>Insight Plan</strong>: Provides detailed reports and analyses to support data-driven improvements.</li>
-        <li><strong>Mentor Plan</strong>: Offers one-on-one mentorship from experienced professionals to guide your growth.</li>
-        <li><strong>Mentor & Care Plan</strong>: Combines expert mentorship with psychological support for a more human approach to care.</li>
-        <li><strong>Elite AI-Powered Care Plan</strong>: Includes all benefits plus 24/7 access to the AI-SkillsAdvisor chatbot for continuous support.</li>
+        <li><strong>Insight Plan</strong>: Ideal for professionals who value independent self-improvement and data-driven insights.</li>
+        <li><strong>Mentor Plan</strong>: Designed for professionals seeking personalized guidance and mentorship from experienced peers.</li>
+        <li><strong>Mentor & Care Plan</strong>: Perfect for professionals committed to comprehensive patient care, combining expert mentorship with emotional support.</li>
+        <li><strong>Elite AI-Powered Care Plan</strong>: Designed for forward-thinking professionals who desire 24/7 access to the AI-Skills Advisor chatbot, providing continuous AI-driven guidance, detailed patient feedback analysis, and personalized coaching for enhanced patient care.</li>
     </ul>
     <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
+
     """, unsafe_allow_html=True)
 
     st.markdown("""
