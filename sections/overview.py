@@ -66,15 +66,15 @@ def show_overview():
 
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <strong>Key Benefits:</strong><br>
-    - Runs on local AI models, maximizing data security<br>
-    - Handles all processing internally, avoiding third-party APIs<br>
-    - Reduces costs by eliminating external API reliance<br>
-    - Maintains full control over data privacy<br>
-    - Supports continuous skill improvement and quality enhancement
-    <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
-    """, unsafe_allow_html=True)
+    # st.markdown("""
+    # <strong>Key Benefits:</strong><br>
+    # - Runs on local AI models, maximizing data security<br>
+    # - Handles all processing internally, avoiding third-party APIs<br>
+    # - Reduces costs by eliminating external API reliance<br>
+    # - Maintains full control over data privacy<br>
+    # - Supports continuous skill improvement and quality enhancement
+    # <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
+    # """, unsafe_allow_html=True)
 
     st.markdown("""
     <div style='text-align: center; margin-top: 20px;'>
