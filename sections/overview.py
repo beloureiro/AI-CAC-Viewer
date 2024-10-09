@@ -7,10 +7,11 @@ def show_overview():
         Clinical Advisory 
         <span style="color: #1b9e4b; font-style: italic; text-shadow: 1px 1px 2px #000000;">Crew</span>
     </h1>
-    <p>Welcome to the <strong>AI Clinical Advisory Crew</strong>, a platform combining artificial intelligence with healthcare expertise to elevate care standards. This WebApp lets you explore the framework, access insights from AI agents, review workflows, learn about the agents and available plans, and try out a chatbot demo in development mode. For those interested in the technical backend, you can check out the full repository on GitHub <a href="https://github.com/beloureiro/AI-CAC-V1.3" style='color: #1b9e4b; text-shadow: 1px 1px 2px #000000;'>here</a>.</p>
+    <p>Welcome to the <strong>AI Clinical Advisory Crew</strong>, a platform combining artificial intelligence with healthcare expertise to elevate care standards. This WebApp lets you explore the framework, access insights from AI agents, review workflows, learn about the agents and available plans, and see a demo preview of a chatbot currently in development. For those interested in the technical backend, you can check out the full repository on GitHub <a href="https://github.com/beloureiro/AI-CAC-V1.3" style='color: #1b9e4b; text-shadow: 1px 1px 2px #000000;'>here</a>.</p>
     <p>Our system uses a robust <strong>AI-Driven Problem Solving</strong> strategy, featuring AI models from top tech companies like Anthropic, OpenAI, Mistral AI, Meta, Google, Microsoft, Tencent, EleutherAI, Stability AI, and other open-source collaborators. This enables streamlined workflows and innovation in the healthcare setting.</p>
     <hr style='border-top: 0.5px solid #1c2333; margin: 10px 0;' />
     """, unsafe_allow_html=True)
+
 
 
     st.markdown("""
