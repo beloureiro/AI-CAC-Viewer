@@ -237,12 +237,12 @@ def ai_clinical_advisory_crew_tab():
             Psychologist-->>-AI_Clinical_Advisory_Crew: Validates Report
 
             create participant Mentors as Elite Mentors
-            AI_Clinical_Advisory_Crew->>+Mentors: Validated by Psychologist, updated by Crew, then sends to Elite Mentors
+            AI_Clinical_Advisory_Crew->>+Mentors: Validated and updated sends to Elite Mentors
             Note over Mentors: Develop personalized coaching strategies.
             
             Mentors-->>-Healthcare_Professionals: Conduct mentorship sessions with professionals.
 
-            create participant AI_SkillsAdvisor as AI-SkillsAdvisor
+            create participant AI_SkillsAdvisor as AI-Skills Advisor
             AI_Clinical_Advisory_Crew->>+AI_SkillsAdvisor: Sends reports 
             AI_SkillsAdvisor-->>Healthcare_Professionals: Provides 24/7 personalized advice and tips based on patient feedback and AI Clinical Advisory Crew recommendations
         """

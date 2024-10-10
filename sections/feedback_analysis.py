@@ -125,7 +125,7 @@ def display_feedback(feedback, report_name, agents_data, total_execution_time):
     st.text_area("Feedback", feedback, height=130)  # O título do text_area é deixado vazio
 
 def display_agent_reports(data, mode, selected_item):
-    st.subheader("Agent Reports")
+    st.subheader("AI Agent Reports")
     if mode == "agent":
         for feedback in data:
             with st.expander(f"Feedback: {feedback['name']}"):
