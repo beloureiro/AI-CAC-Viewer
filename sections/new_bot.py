@@ -76,6 +76,14 @@ def new_bot_component():
     if user_input:
         process_query(user_input)
 
+    # Colocar o rodapé aqui para garantir que esteja após o input
+    st.markdown("""
+    <div style='text-align: center; margin-top: 20px;'>
+        <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
+    </div>
+    """, unsafe_allow_html=True)
+
+
 
 def process_query(query):
     # Add user message to chat history
@@ -128,9 +136,10 @@ def get_response(query):
             return f"{response}\n\n*{confidence_indicator}*"
 
     # If no matching question is found
-    response = "I apologize, but I don't have a specific answer for that question. Is there something else I can help you with?"
+    response = "I apologize, but this is a demo version of the AI-Skills Advisor, which can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
     confidence_indicator = "ℹ️ Demo Response"
     return f"{response}\n\n*{confidence_indicator}*"
+
 
 
 # This allows the file to be run standalone for testing
