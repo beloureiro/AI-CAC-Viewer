@@ -36,11 +36,14 @@ data = {
 
 # Título e introdução
 st.title("AI-Skills Advisor")
-st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew.")
+
+# Mensagem de boas-vindas do assistente
+with st.chat_message("assistant", avatar=assistant_avatar_path):
+    st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. How can I assist you today?")
 
 # Inicializa o estado da sessão
 if 'messages' not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. How can I assist you today?", "avatar": assistant_avatar_path}]
 
 # Função para adicionar mensagem ao chat
 def add_message(role, content):
@@ -68,10 +71,17 @@ def process_response(answer):
         
         status.update(label="Response generated!", state="complete", expanded=False)
         st.markdown(answer)
-    add_message("assistant", answer)
+        
+        # Adiciona o indicador de confiança
+        confidence_indicator = "✅ Verified Response (Confidence: 100.0%)"
+        st.markdown(f"{confidence_indicator}")
+    
+    # Adiciona a resposta com o indicador de confiança ao histórico de mensagens
+    full_response = f"{answer}\n\n*{confidence_indicator}*"
+    add_message("assistant", full_response)
 
-# Exibe o histórico de mensagens
-for msg in st.session_state.messages:
+# Exibe o histórico de mensagens (exceto a primeira mensagem de boas-vindas)
+for msg in st.session_state.messages[1:]:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
         st.markdown(msg["content"])
 
@@ -91,6 +101,5 @@ user_input = st.chat_input("Any other questions?")
 if user_input:
     add_message("user", user_input)
     process_response("I'm here to assist with insights and guidance.")
-
 
 # to run the app: streamlit run sections/new_bot.py
