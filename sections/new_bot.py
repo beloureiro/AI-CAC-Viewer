@@ -1,6 +1,10 @@
 import streamlit as st
 import time
 
+# Caminhos dos avatares
+user_avatar_path = "assets/agents/profile-picture.png"
+assistant_avatar_path = "assets/agents/AISkillsAdvisor.png"
+
 # Dicionário contendo as perguntas e respostas
 data = {
     "what_can_you_do": {
@@ -40,11 +44,12 @@ if 'messages' not in st.session_state:
 
 # Função para adicionar mensagem ao chat
 def add_message(role, content):
-    st.session_state.messages.append({"role": role, "content": content})
+    avatar = user_avatar_path if role == "user" else assistant_avatar_path
+    st.session_state.messages.append({"role": role, "content": content, "avatar": avatar})
 
 # Função para processar a resposta
 def process_response(answer):
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=assistant_avatar_path):
         status = st.status("Processing your request...", expanded=True)
         
         steps = [
@@ -67,7 +72,7 @@ def process_response(answer):
 
 # Exibe o histórico de mensagens
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
+    with st.chat_message(msg["role"], avatar=msg["avatar"]):
         st.markdown(msg["content"])
 
 # Organização dos botões
