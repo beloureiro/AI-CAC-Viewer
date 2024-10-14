@@ -33,74 +33,87 @@ data = {
     }
 }
 
+def new_bot_component():
+    # Título e introdução
+    st.title("AI-Skills Advisor")
 
-# Título e introdução
-st.title("AI-Skills Advisor")
-
-# Mensagem de boas-vindas do assistente
-with st.chat_message("assistant", avatar=assistant_avatar_path):
-    st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.")
-
-# Inicializa o estado da sessão
-if 'messages' not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. How can I assist you today?", "avatar": assistant_avatar_path}]
-
-# Função para adicionar mensagem ao chat
-def add_message(role, content):
-    avatar = user_avatar_path if role == "user" else assistant_avatar_path
-    st.session_state.messages.append({"role": role, "content": content, "avatar": avatar})
-
-# Função para processar a resposta
-def process_response(answer, is_demo=False):
+    # Mensagem de boas-vindas do assistente
     with st.chat_message("assistant", avatar=assistant_avatar_path):
-        status = st.status("Processing your request...", expanded=True)
-        
-        steps = [
-            "Identifying the Type of Question...",
-            "Retrieving Relevant Text Chunks...",
-            "Formulating Prompt for Language Model (LLM)...",
-            "Evaluating and Adjusting Generated Response Based on Confidence...",
-            "Storing Interaction for Future Use and Updating Conversation History...",
-            "Updating Visualization of Similarity and Context for Relevant Chunks...",
-            "Displaying Response with Confidence Metrics on Interface..."
-        ]
-        
-        for step in steps:
-            status.update(label=step)
-            time.sleep(2)
-        
-        status.update(label="Response generated!", state="complete", expanded=False)
-        st.markdown(answer)
-        
-        # Adiciona o indicador de confiança
-        confidence_indicator = "✅ Verified Response (Confidence: 100.0%)" if not is_demo else "ℹ️ Demo Response"
-        st.markdown(f"{confidence_indicator}")
-    
-    # Adiciona a resposta com o indicador de confiança ao histórico de mensagens
-    full_response = f"{answer}\n\n*{confidence_indicator}*"
-    add_message("assistant", full_response)
+        st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.")
 
-# Exibe o histórico de mensagens (exceto a primeira mensagem de boas-vindas)
-for msg in st.session_state.messages[1:]:
-    with st.chat_message(msg["role"], avatar=msg["avatar"]):
-        st.markdown(msg["content"])
+    # Inicializa o estado da sessão
+    if 'messages' not in st.session_state:
+        st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. How can I assist you today?", "avatar": assistant_avatar_path}]
 
-# Organização dos botões
-button_cols = st.columns(3)
-button_rows = list(data.keys())
+    # Função para adicionar mensagem ao chat
+    def add_message(role, content):
+        avatar = user_avatar_path if role == "user" else assistant_avatar_path
+        st.session_state.messages.append({"role": role, "content": content, "avatar": avatar})
 
-# Responde às interações do usuário com botões
-for idx, key in enumerate(button_rows):
-    col = button_cols[idx % 3]
-    if col.button(data[key]["question"]):
-        add_message("user", data[key]["question"])
-        process_response(data[key]["answer"])
+    # Função para processar a resposta
+    def process_response(answer, is_demo=False):
+        with st.chat_message("assistant", avatar=assistant_avatar_path):
+            status = st.status("Processing your request...", expanded=True)
+            
+            steps = [
+                "Identifying the Type of Question...",
+                "Retrieving Relevant Text Chunks...",
+                "Formulating Prompt for Language Model (LLM)...",
+                "Evaluating and Adjusting Generated Response Based on Confidence...",
+                "Storing Interaction for Future Use and Updating Conversation History...",
+                "Updating Visualization of Similarity and Context for Relevant Chunks...",
+                "Displaying Response with Confidence Metrics on Interface..."
+            ]
+            
+            # Create a placeholder for the progress bar
+            progress_placeholder = st.empty()
+            
+            for i, step in enumerate(steps):
+                status.update(label=step)
+                # Update progress bar
+                progress = int((i + 1) / len(steps) * 100)
+                progress_placeholder.progress(progress, f"Processing: {progress}%")
+                time.sleep(2)
+            
+            status.update(label="Response generated!", state="complete", expanded=False)
+            # Clear the progress bar
+            progress_placeholder.empty()
+            
+            st.markdown(answer)
+            
+            # Adiciona o indicador de confiança
+            confidence_indicator = "✅ Verified Response (Confidence: 100.0%)" if not is_demo else "ℹ️ Demo Response"
+            st.markdown(f"{confidence_indicator}")
+        
+        # Adiciona a resposta com o indicador de confiança ao histórico de mensagens
+        full_response = f"{answer}\n\n*{confidence_indicator}*"
+        add_message("assistant", full_response)
 
-# Campo de entrada para perguntas personalizadas
-user_input = st.chat_input("Any other questions?")
-if user_input:
-    add_message("user", user_input)
-    demo_response = "I apologize, but this is a demo version of the AI-Skills Advisor. It's not connected to the real server and can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
-    process_response(demo_response, is_demo=True)
+    # Exibe o histórico de mensagens (exceto a primeira mensagem de boas-vindas)
+    for msg in st.session_state.messages[1:]:
+        with st.chat_message(msg["role"], avatar=msg["avatar"]):
+            st.markdown(msg["content"])
+
+    # Organização dos botões
+    button_cols = st.columns(3)
+    button_rows = list(data.keys())
+
+    # Responde às interações do usuário com botões
+    for idx, key in enumerate(button_rows):
+        col = button_cols[idx % 3]
+        if col.button(data[key]["question"]):
+            add_message("user", data[key]["question"])
+            process_response(data[key]["answer"])
+
+    # Campo de entrada para perguntas personalizadas
+    user_input = st.chat_input("Any other questions?")
+    if user_input:
+        add_message("user", user_input)
+        demo_response = "I apologize, but this is a demo version of the AI-Skills Advisor. It's not connected to the real server and can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
+        process_response(demo_response, is_demo=True)
+
+# This allows the file to be run standalone for testing
+if __name__ == "__main__":
+    new_bot_component()
 
 # to run the app: streamlit run sections/new_bot.py

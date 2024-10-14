@@ -3,7 +3,7 @@ from sections.feedback_analysis import patient_feedback_analyzer
 from sections.overview import show_overview
 from sections.use_case import ai_clinical_advisory_crew_tab  # Importa a nova função
 from sections.ai_crew import ai_crew_component  # Importa a nova função
-from sections.rag_bot import rag_bot_component  # Importa a nova função do rag_bot.py
+from sections.new_bot import new_bot_component  # Import the new function
 
 def main():
     # Configura a página (deve ser a primeira chamada do Streamlit)
@@ -81,7 +81,7 @@ def main():
             display_complete_txt_report(analyzer)
 
     elif tab == "AI-Skills Advisor":  # Nova aba adicionada
-        rag_bot_component()  # Chama a função do rag_bot.py
+        new_bot_component()  # Call the function from new_bot.py instead of rag_bot.py
 
 # Função para exibir feedback e KPIs
 def display_feedback(feedback_data, analyzer):
