@@ -45,81 +45,88 @@ def new_bot_component():
             # Título e introdução
             st.title("AI-Skills Advisor")
 
-            # Mensagem de boas-vindas do assistente
-            with st.chat_message("assistant", avatar=assistant_avatar_path):
-                st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.")
-
             # Inicializa o estado da sessão
             if 'messages' not in st.session_state:
-                st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. How can I assist you today?", "avatar": assistant_avatar_path}]
+                st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.", "avatar": assistant_avatar_path}]
 
-            # Função para adicionar mensagem ao chat
-            def add_message(role, content):
-                avatar = user_avatar_path if role == "user" else assistant_avatar_path
-                st.session_state.messages.append({"role": role, "content": content, "avatar": avatar})
-
-            # Função para processar a resposta
-            def process_response(answer, is_demo=False):
-                with st.chat_message("assistant", avatar=assistant_avatar_path):
-                    status = st.status("Processing your request...", expanded=True)
-                    
-                    steps = [
-                        "Identifying the Type of Question...",
-                        "Retrieving Relevant Text Chunks...",
-                        "Formulating Prompt for Language Model (LLM)...",
-                        "Evaluating and Adjusting Generated Response Based on Confidence...",
-                        "Storing Interaction for Future Use and Updating Conversation History...",
-                        "Updating Visualization of Similarity and Context for Relevant Chunks...",
-                        "Displaying Response with Confidence Metrics on Interface..."
-                    ]
-                    
-                    # Create a placeholder for the progress bar
-                    progress_placeholder = st.empty()
-                    
-                    for i, step in enumerate(steps):
-                        status.update(label=step)
-                        # Update progress bar
-                        progress = int((i + 1) / len(steps) * 100)
-                        progress_placeholder.progress(progress, f"Processing: {progress}%")
-                        time.sleep(2)
-                    
-                    status.update(label="Response generated!", state="complete", expanded=False)
-                    # Clear the progress bar
-                    progress_placeholder.empty()
-                    
-                    st.markdown(answer)
-                    
-                    # Adiciona o indicador de confiança
-                    confidence_indicator = "✅ Verified Response (Confidence: 100.0%)" if not is_demo else "ℹ️ Demo Response"
-                    st.markdown(f"{confidence_indicator}")
-                
-                # Adiciona a resposta com o indicador de confiança ao histórico de mensagens
-                full_response = f"{answer}\n\n*{confidence_indicator}*"
-                add_message("assistant", full_response)
-
-            # Exibe o histórico de mensagens (exceto a primeira mensagem de boas-vindas)
-            for msg in st.session_state.messages[1:]:
+            # Display chat messages from history
+            for msg in st.session_state.messages:
                 with st.chat_message(msg["role"], avatar=msg["avatar"]):
                     st.markdown(msg["content"])
 
-            # Organização dos botões em 3 colunas
-            button_rows = list(data.keys())
-            for i in range(0, len(button_rows), 6):  # Incrementa de 6 em 6 para criar grupos de 6 botões
-                col1, col2, col3 = st.columns(3)
-                for j, col in enumerate([col1, col2, col3]):
-                    for k in range(2):  # 2 botões por coluna
-                        idx = i + j * 2 + k
-                        if idx < len(button_rows):
-                            if col.button(data[button_rows[idx]]["question"]):
-                                add_message("user", data[button_rows[idx]]["question"])
-                                process_response(data[button_rows[idx]]["answer"])
+            # Example prompts
+            example_prompts = [
+                "What skills and roles do you provide exactly?",
+                "Where are my biggest inefficiencies right now?",
+                "Could you show the feedback from the patients?",
+                "How can I quickly raise patient satisfaction?",
+                "Any suggestions to help enhance my workflow?",
+                "What's the general trend in patient feedback now?"
+            ]
 
-            # Campo de entrada para perguntas personalizadas
+            # Create buttons in two rows of three columns
+            for i in range(0, len(example_prompts), 3):
+                cols = st.columns(3)
+                for j in range(3):
+                    if i + j < len(example_prompts):
+                        if cols[j].button(example_prompts[i + j]):
+                            process_query(example_prompts[i + j])
+
+            # Chat input
             user_input = st.chat_input("Any other questions?")
             if user_input:
-                add_message("user", user_input)
-                demo_response = "I apologize, but this is a demo version of the AI-Skills Advisor. It's not connected to the real server and can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
-                process_response(demo_response, is_demo=True)
+                process_query(user_input)
+
+def process_query(query):
+    # Add user message to chat history
+    st.session_state.messages.append({"role": "user", "content": query, "avatar": user_avatar_path})
+
+    # Process the query and get response
+    response = get_response(query)
+
+    # Add assistant response to chat history
+    st.session_state.messages.append({"role": "assistant", "content": response, "avatar": assistant_avatar_path})
+
+    # Rerun the app to update the chat
+    st.rerun()  # Changed from st.experimental_rerun() to st.rerun()
+
+def get_response(query):
+    # Simulate processing time
+    with st.chat_message("assistant", avatar=assistant_avatar_path):
+        status = st.status("Processing your request...", expanded=True)
+        
+        steps = [
+            "Identifying the Type of Question...",
+            "Retrieving Relevant Text Chunks...",
+            "Formulating Prompt for Language Model (LLM)...",
+            "Evaluating and Adjusting Generated Response Based on Confidence...",
+            "Storing Interaction for Future Use and Updating Conversation History...",
+            "Updating Visualization of Similarity and Context for Relevant Chunks...",
+            "Displaying Response with Confidence Metrics on Interface..."
+        ]
+        
+        progress_placeholder = st.empty()
+        
+        for i, step in enumerate(steps):
+            status.update(label=step)
+            progress = int((i + 1) / len(steps) * 100)
+            progress_placeholder.progress(progress, f"Processing: {progress}%")
+            time.sleep(2)  # Reduced sleep time for faster demo
+        
+        status.update(label="Response generated!", state="complete", expanded=False)
+        progress_placeholder.empty()
+
+    # Get the response from the data dictionary
+    for key, value in data.items():
+        if query.lower() in value["question"].lower():
+            response = value["answer"]
+            confidence_indicator = "✅ Verified Response (Confidence: 100.0%)"
+            return f"{response}\n\n*{confidence_indicator}*"
+    
+    # If no matching question is found
+    response = "I apologize, but I don't have a specific answer for that question. Is there something else I can help you with?"
+    confidence_indicator = "ℹ️ Demo Response"
+    return f"{response}\n\n*{confidence_indicator}*"
 
 # This allows the file to be run standalone for testing
 if __name__ == "__main__":
