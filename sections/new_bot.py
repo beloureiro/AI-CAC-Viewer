@@ -39,7 +39,7 @@ st.title("AI-Skills Advisor")
 
 # Mensagem de boas-vindas do assistente
 with st.chat_message("assistant", avatar=assistant_avatar_path):
-    st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. How can I assist you today?")
+    st.markdown("Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.")
 
 # Inicializa o estado da sessão
 if 'messages' not in st.session_state:
@@ -51,7 +51,7 @@ def add_message(role, content):
     st.session_state.messages.append({"role": role, "content": content, "avatar": avatar})
 
 # Função para processar a resposta
-def process_response(answer):
+def process_response(answer, is_demo=False):
     with st.chat_message("assistant", avatar=assistant_avatar_path):
         status = st.status("Processing your request...", expanded=True)
         
@@ -73,7 +73,7 @@ def process_response(answer):
         st.markdown(answer)
         
         # Adiciona o indicador de confiança
-        confidence_indicator = "✅ Verified Response (Confidence: 100.0%)"
+        confidence_indicator = "✅ Verified Response (Confidence: 100.0%)" if not is_demo else "ℹ️ Demo Response"
         st.markdown(f"{confidence_indicator}")
     
     # Adiciona a resposta com o indicador de confiança ao histórico de mensagens
@@ -100,6 +100,7 @@ for idx, key in enumerate(button_rows):
 user_input = st.chat_input("Any other questions?")
 if user_input:
     add_message("user", user_input)
-    process_response("I'm here to assist with insights and guidance.")
+    demo_response = "I apologize, but this is a demo version of the AI-Skills Advisor. It's not connected to the real server and can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
+    process_response(demo_response, is_demo=True)
 
 # to run the app: streamlit run sections/new_bot.py
