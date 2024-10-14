@@ -34,26 +34,25 @@ data = {
     }
 }
 
+
 def new_bot_component():
-    # Use um container para centralizar o conteúdo
-    container = st.container()
-    
-    with container:
+    st.title("AI-Skills Advisor")
+
+    # Inicializa o estado da sessão
+    if 'messages' not in st.session_state:
+        st.session_state.messages = [
+            {"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.", "avatar": assistant_avatar_path}]
+
+    # Display chat messages from history (full width)
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"], avatar=msg["avatar"]):
+            st.markdown(msg["content"])
+
+    # Center the buttons
+    button_container = st.container()
+    with button_container:
         col1, col2, col3 = st.columns([1, 2, 1])
-        
         with col2:
-            # Título e introdução
-            st.title("AI-Skills Advisor")
-
-            # Inicializa o estado da sessão
-            if 'messages' not in st.session_state:
-                st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.", "avatar": assistant_avatar_path}]
-
-            # Display chat messages from history
-            for msg in st.session_state.messages:
-                with st.chat_message(msg["role"], avatar=msg["avatar"]):
-                    st.markdown(msg["content"])
-
             # Example prompts
             example_prompts = [
                 "What skills and roles do you provide exactly?",
@@ -66,35 +65,39 @@ def new_bot_component():
 
             # Create buttons in two rows of three columns
             for i in range(0, len(example_prompts), 3):
-                cols = st.columns(3)
+                button_cols = st.columns(3)
                 for j in range(3):
                     if i + j < len(example_prompts):
-                        if cols[j].button(example_prompts[i + j]):
+                        if button_cols[j].button(example_prompts[i + j]):
                             process_query(example_prompts[i + j])
 
-            # Chat input
-            user_input = st.chat_input("Any other questions?")
-            if user_input:
-                process_query(user_input)
+    # Chat input (full width)
+    user_input = st.chat_input("Any other questions?")
+    if user_input:
+        process_query(user_input)
+
 
 def process_query(query):
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": query, "avatar": user_avatar_path})
+    st.session_state.messages.append(
+        {"role": "user", "content": query, "avatar": user_avatar_path})
 
     # Process the query and get response
     response = get_response(query)
 
     # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response, "avatar": assistant_avatar_path})
+    st.session_state.messages.append(
+        {"role": "assistant", "content": response, "avatar": assistant_avatar_path})
 
     # Rerun the app to update the chat
     st.rerun()  # Changed from st.experimental_rerun() to st.rerun()
+
 
 def get_response(query):
     # Simulate processing time
     with st.chat_message("assistant", avatar=assistant_avatar_path):
         status = st.status("Processing your request...", expanded=True)
-        
+
         steps = [
             "Identifying the Type of Question...",
             "Retrieving Relevant Text Chunks...",
@@ -104,16 +107,17 @@ def get_response(query):
             "Updating Visualization of Similarity and Context for Relevant Chunks...",
             "Displaying Response with Confidence Metrics on Interface..."
         ]
-        
+
         progress_placeholder = st.empty()
-        
+
         for i, step in enumerate(steps):
             status.update(label=step)
             progress = int((i + 1) / len(steps) * 100)
             progress_placeholder.progress(progress, f"Processing: {progress}%")
-            time.sleep(2)  # Reduced sleep time for faster demo
-        
-        status.update(label="Response generated!", state="complete", expanded=False)
+            time.sleep(2)
+
+        status.update(label="Response generated!",
+                      state="complete", expanded=False)
         progress_placeholder.empty()
 
     # Get the response from the data dictionary
@@ -122,11 +126,12 @@ def get_response(query):
             response = value["answer"]
             confidence_indicator = "✅ Verified Response (Confidence: 100.0%)"
             return f"{response}\n\n*{confidence_indicator}*"
-    
+
     # If no matching question is found
     response = "I apologize, but I don't have a specific answer for that question. Is there something else I can help you with?"
     confidence_indicator = "ℹ️ Demo Response"
     return f"{response}\n\n*{confidence_indicator}*"
+
 
 # This allows the file to be run standalone for testing
 if __name__ == "__main__":
