@@ -1,13 +1,12 @@
 import streamlit as st # type: ignore
 import time
 
-# Caminhos dos avatares
+# Paths for avatars
 user_avatar_path = "assets/agents/profile-picture.png"
 assistant_avatar_path = "assets/agents/AISkillsAdvisor.png"
 
-# Dicionário contendo as perguntas e respostas
+# Dictionary containing questions and answers
 data = {
-
     "what_can_you_do": {
         "question": "What skills and roles do you provide exactly?",
         "answer": "I am the AI-Skills Advisor, a key component of the AI Clinical Advisory Crew. My role is to provide continuous, data-driven support to healthcare professionals like yourself. Here's what I can do for you:\n\n1. Analyze patient feedback and generate insights to improve care quality.\n2. Identify opportunities to enhance workflows and processes in healthcare delivery.\n3. Offer communication strategies to improve patient-provider interactions.\n4. Provide psychological insights for better post-consultation patient care.\n5. Deliver managerial overviews and summaries of patient feedback.\n6. Offer personalized recommendations for professional development.\n7. Provide instant, 24/7 access to AI-driven guidance and support.\n\nMy goal is to help you excel in your healthcare practice by leveraging AI-powered insights and continuous learning. How can I assist you in improving your professional skills today?"
@@ -32,16 +31,31 @@ data = {
         "question": "What's the general trend in patient feedback now?",
         "answer": "The overall patient feedback trend over time indicates an increasingly positive experience, with positive comments on the rise, particularly in recent months. According to the Patient Experience Expert, there is still some urgency in addressing specific issues, such as concerns about patient evolution and language barriers, which can lead to misunderstandings.\n\nPositive feedback represents approximately 60% of the responses, highlighting strengths like timely appointments, staff kindness, clinic cleanliness, staff efficiency, clear explanations by doctors, and gentle care from nurses. The Health & IT Process Expert recommends maintaining these positive practices through ongoing training programs to ensure consistent patient experiences as satisfaction continues to improve.\n\nNegative feedback (around 20%) identifies areas needing attention, including perceived lack of interest in patient evolution, language barriers, and occasional long wait times. The Communication Expert suggests improving access to language interpretation services and establishing a structured communication protocol to enhance patient engagement, ensure regular updates, and foster empathetic interactions.\n\nNeutral feedback (around 20%) reflects some mild frustration related to wait times but acknowledges positive aspects, such as efficiency and cleanliness. According to the Clinical Psychologist, validating these patient experiences is essential for addressing concerns and creating a supportive environment.\n\nTo continue building on these positive trends and further improve patient satisfaction, consider implementing regular follow-up protocols, expanding language interpretation services, optimizing scheduling, maintaining high standards for cleanliness, and emphasizing clear and empathetic communication during consultations. The Manager and Advisor emphasize the importance of mandatory training sessions on empathy and active listening to further enhance patient engagement and satisfaction.\n\nBy reinforcing these positive practices and addressing areas of improvement, you can continue to enhance patient satisfaction and overall experience within your healthcare setting. See the chart below for a visual representation of these trends.",
         "chart_data": {
-            "Positive Sentiment": [1, 0, 1, 2],  # Julho, Agosto, Setembro, Outubro
-            "Negative Sentiment": [1, 1, 1, 0]   # Julho, Agosto, Setembro, Outubro
+            "Positive Sentiment": [1, 0, 1, 2],  # July, August, September, October
+            "Negative Sentiment": [1, 1, 1, 0]   # July, August, September, October
         }
     }
 }
 
 def new_bot_component():
+    """
+    Initializes and displays the AI-Skills Advisor interface in the Streamlit app.
+
+    This function sets up the chat history, displays interactive buttons with example prompts,
+    and handles user input for chat-based interactions. It also includes a footer with branding information.
+
+    The function performs the following tasks:
+    1. Sets up the initial chat message if not already present in the session state.
+    2. Displays the chat history.
+    3. Creates interactive buttons for predefined example prompts.
+    4. Handles user input through a chat input field.
+    5. Displays a footer with branding information.
+
+    No parameters or return values.
+    """
     st.title("AI-Skills Advisor")
 
-    # Inicializa o estado da sessão
+    # Initializes the session state
     if 'messages' not in st.session_state:
         st.session_state.messages = [
             {"role": "assistant", "content": "Hello! I'm the AI-Skills Advisor, a part of the Clinical Advisory Crew. I'm here to provide continuous, data-driven support to healthcare professionals like yourself. Choose a topic below to get started.", "avatar": assistant_avatar_path}]
@@ -81,16 +95,28 @@ def new_bot_component():
     if user_input:
         process_query(user_input)
 
-# Rodapé com conteúdo HTML personalizado
+    # Footer with custom HTML content
     st.markdown("""
     <div style='text-align: center; margin-top: 20px;'>
         <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
     </div>
     """, unsafe_allow_html=True)
 
-
-
 def process_query(query):
+    """
+    Processes user queries and updates the chat interface.
+
+    This function handles the following steps:
+    1. Appends the user's query to the session history.
+    2. Retrieves a relevant response by calling the get_response function.
+    3. Adds the AI's response to the session history.
+    4. Triggers a rerun of the Streamlit app to update the chat interface.
+
+    Parameters:
+    query (str): The user's input query.
+
+    No return value.
+    """
     # Add user message to chat history
     st.session_state.messages.append(
         {"role": "user", "content": query, "avatar": user_avatar_path})
@@ -111,8 +137,24 @@ def process_query(query):
     # Rerun the app to update the chat
     st.rerun()
 
-
 def get_response(query):
+    """
+    Simulates an AI response to a user query.
+
+    This function performs the following:
+    1. Displays a processing status with animated steps.
+    2. Checks the predefined data dictionary for a matching response to the query.
+    3. If a match is found, returns the corresponding answer and any associated chart data.
+    4. If no match is found, returns a default response indicating the demo's limitations.
+
+    Parameters:
+    query (str): The user's input query.
+
+    Returns:
+    tuple: A tuple containing two elements:
+        - str: The response text, including a confidence indicator.
+        - dict or None: Chart data if available, otherwise None.
+    """
     # Simulate processing time
     with st.chat_message("assistant", avatar=assistant_avatar_path):
         status = st.status("Processing your request...", expanded=True)
@@ -151,8 +193,6 @@ def get_response(query):
     response = "I apologize, but this is a demo version of the AI-Skills Advisor, which can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
     confidence_indicator = "ℹ️ Demo Response"
     return f"{response}\n\n*{confidence_indicator}*", None
-
-
 
 # This allows the file to be run standalone for testing
 if __name__ == "__main__":

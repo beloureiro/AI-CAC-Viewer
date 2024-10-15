@@ -117,6 +117,14 @@ Additionally, this plan introduces the AI-SkillsAdvisor, an AI-powered chatbot a
 
 
 def ai_clinical_advisory_crew_tab():
+    """
+    Displays the AI Clinical Advisory Crew tab in the Streamlit app.
+
+    This function applies custom CSS, displays the main title, available plans, and detailed breakdowns of each plan.
+    It also includes Mermaid diagrams for visual representation of workflows and a section for side-by-side comparison of plans.
+
+    No parameters or return values.
+    """
     # Apply custom CSS
     st.markdown(custom_css, unsafe_allow_html=True)
     # Updated main title styling

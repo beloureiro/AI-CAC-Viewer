@@ -1,6 +1,15 @@
 import streamlit as st  # type: ignore
 
 def show_overview():
+    """
+    Displays the overview of the AI Clinical Advisory Crew.
+
+    This function renders the main content of the overview page, including the title, value proposition,
+    available plans, and details about the AI team. It uses Streamlit's markdown capabilities to format
+    the content and includes custom CSS for styling.
+
+    No parameters or return values.
+    """
     st.markdown("""
     <h1>
         <span style="color: #1b9e4b; font-style: italic; text-shadow: 1px 1px 2px #000000;">AI</span> 
@@ -120,7 +129,6 @@ def show_overview():
         <p style='color: white;'>Powered by <a href="https://inmotion.today/" style='color: #1b9e4b;'>Inmotion</a></p>
     </div>
     """, unsafe_allow_html=True)
-
 
     # st.markdown("""
     # <strong>Key Benefits:</strong><br>

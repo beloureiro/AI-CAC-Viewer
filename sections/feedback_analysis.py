@@ -24,8 +24,11 @@ FIELD_EQUIVALENCE = {
     'Recommendations_Manager_and_Advisor': 'Recommendations'
 }
 
-
 def load_json_files(data_folder):
+    """
+    Loads JSON files from a specified folder, handling errors for missing folders 
+    or files, and returns their contents as a list of dictionaries.
+    """
     data = []
 
     # Verifica se a pasta existe
@@ -58,8 +61,11 @@ def load_json_files(data_folder):
     
     return data
 
-
 def read_txt_report(report_name):
+    """
+    Reads a TXT report file from the 'data_reports' folder and returns its contents 
+    as a string. Returns an error message if the file is not found.
+    """
     txt_file_path = os.path.join('data_reports', f"{report_name}.txt")
     if os.path.exists(txt_file_path):
         with open(txt_file_path, 'r', encoding='utf-8') as f:
@@ -67,6 +73,10 @@ def read_txt_report(report_name):
     return "TXT report not found."
 
 def download_txt_report(report_name):
+    """
+    Provides a download button in the Streamlit interface for downloading a TXT report 
+    file, given the report name.
+    """
     txt_content = read_txt_report(report_name)
     return st.download_button(
         label="Download TXT Report",
@@ -76,6 +86,10 @@ def download_txt_report(report_name):
     )
 
 def convert_time_to_seconds(time_str):
+    """
+    Converts a time string in the format 'X minutes Y seconds' to total seconds 
+    and returns the integer result.
+    """
     minutes = 0
     seconds = 0
     time_parts = re.findall(r'\d+\s+\w+', time_str)
@@ -88,6 +102,10 @@ def convert_time_to_seconds(time_str):
     return minutes * 60 + seconds
 
 def display_feedback(feedback, report_name, agents_data, total_execution_time):
+    """
+    Displays patient feedback and related Key Performance Indicators (KPIs) 
+    in the Streamlit interface, with specific formatting and layout.
+    """
     st.subheader("Indicators")
     patient_expert = next((agent for agent in agents_data if agent['agent_name'] == 'Patient Experience Expert'), None)
     if patient_expert:
@@ -125,6 +143,10 @@ def display_feedback(feedback, report_name, agents_data, total_execution_time):
     st.text_area("Feedback", feedback, height=130)  # O título do text_area é deixado vazio
 
 def display_agent_reports(data, mode, selected_item):
+    """
+    Shows AI agent reports based on the selected mode ('agent' or 'feedback') 
+    with appropriate formatting and display options in the Streamlit interface.
+    """
     st.subheader("AI Agent Reports")
     if mode == "agent":
         for feedback in data:
@@ -150,6 +172,10 @@ def display_agent_reports(data, mode, selected_item):
                     st.markdown(f"<p style='color: #b0b0b0; margin-left: 20px;'>{value}</p>", unsafe_allow_html=True)
 
 def display_table_view(data):
+    """
+    Displays a table view of all feedback and agent reports, including filters for 
+    narrowing down data by feedback or agent.
+    """
     st.subheader("All Feedback and Agent Reports")
     
     table_data = []
@@ -189,6 +215,10 @@ def display_table_view(data):
     st.dataframe(filtered_df)
 
 def display_complete_txt_report(data):
+    """
+    Shows the complete report in TXT format, allowing users to download the report 
+    and includes text area styling within the Streamlit interface.
+    """
     st.subheader("Complete Report (TXT)")
     if not data:
         st.warning("No reports available.")
@@ -234,6 +264,10 @@ body {
 """
 
 def patient_feedback_analyzer():
+    """
+    Sets up the main interface for analyzing patient feedback, including the application 
+    of custom CSS, displaying different view options, and loading data from JSON files.
+    """
     # Apply custom CSS
     st.markdown(custom_css, unsafe_allow_html=True)
     

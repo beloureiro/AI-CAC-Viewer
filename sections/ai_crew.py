@@ -3,6 +3,10 @@ from PIL import Image # type: ignore
 import os
 
 def load_image(image_path):
+    """
+    Loads and returns an image from the specified path using PIL. 
+    Shows a warning if the image is not found.
+    """
     try:
         return Image.open(image_path)
     except FileNotFoundError:
@@ -10,6 +14,10 @@ def load_image(image_path):
         return None
 
 def ai_crew_component():
+    """
+    Displays the AI crew component within the Streamlit app, including a search functionality 
+    for AI agents, filtered results, and styled profiles with images and descriptions.
+    """
     st.markdown("""
     <h1 style='color: #1b9e4b;'>Meet our team of AI experts, ready to transform the healthcare experience.</h1>
     """, unsafe_allow_html=True)
