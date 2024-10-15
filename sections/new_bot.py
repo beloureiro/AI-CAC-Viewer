@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st # type: ignore
 import time
 
 # Caminhos dos avatares
@@ -30,10 +30,13 @@ data = {
     },
     "overall_patient_feedback_trend": {
         "question": "What's the general trend in patient feedback now?",
-        "answer": "The overall patient feedback trend over time indicates a mix of positive and negative experiences. According to the Patient Experience Expert, there is a high urgency level for addressing issues related to lack of interest in patient evolution and worsening conditions, as well as language barriers causing misunderstandings.\n\nPositive feedback accounts for approximately 60% of the responses, highlighting strengths such as timely appointments, kindness of staff, cleanliness of the clinic, efficiency of staff, clear explanations by doctors, and gentle care from nurses. According to the Health & IT Process Expert, maintaining these positive practices through ongoing training programs is essential for consistent patient experiences.\n\nNegative feedback (around 20%) points out areas that need improvement, including lack of interest in patient evolution, language barriers, long wait times, and poor communication quality. According to the Communication Expert, ensuring access to language interpretation services and establishing a structured communication protocol emphasizing patient engagement, regular updates, and empathetic interactions can help rebuild trust and improve patient outcomes.\n\nNeutral feedback (around 20%) suggests subtle frustration due to wait times but also acknowledges positive aspects such as efficiency and cleanliness. According to the Clinical Psychologist, validating patients' experiences and emotions is crucial in addressing these concerns and fostering a supportive environment.\n\nTo address these trends and improve patient satisfaction, consider implementing regular follow-up protocols, ensuring access to language interpretation services, optimizing scheduling practices, maintaining high standards for cleanliness, and emphasizing clear explanations and empathetic interactions during consultations. According to the Manager and Advisor, conducting mandatory training sessions focused on empathy and active listening can also help healthcare providers better engage with patients.\n\nBy addressing these areas of improvement and reinforcing positive practices, you can enhance patient satisfaction and overall experience within your healthcare setting."
+        "answer": "The overall patient feedback trend over time indicates an increasingly positive experience, with positive comments on the rise, particularly in recent months. According to the Patient Experience Expert, there is still some urgency in addressing specific issues, such as concerns about patient evolution and language barriers, which can lead to misunderstandings.\n\nPositive feedback represents approximately 60% of the responses, highlighting strengths like timely appointments, staff kindness, clinic cleanliness, staff efficiency, clear explanations by doctors, and gentle care from nurses. The Health & IT Process Expert recommends maintaining these positive practices through ongoing training programs to ensure consistent patient experiences as satisfaction continues to improve.\n\nNegative feedback (around 20%) identifies areas needing attention, including perceived lack of interest in patient evolution, language barriers, and occasional long wait times. The Communication Expert suggests improving access to language interpretation services and establishing a structured communication protocol to enhance patient engagement, ensure regular updates, and foster empathetic interactions.\n\nNeutral feedback (around 20%) reflects some mild frustration related to wait times but acknowledges positive aspects, such as efficiency and cleanliness. According to the Clinical Psychologist, validating these patient experiences is essential for addressing concerns and creating a supportive environment.\n\nTo continue building on these positive trends and further improve patient satisfaction, consider implementing regular follow-up protocols, expanding language interpretation services, optimizing scheduling, maintaining high standards for cleanliness, and emphasizing clear and empathetic communication during consultations. The Manager and Advisor emphasize the importance of mandatory training sessions on empathy and active listening to further enhance patient engagement and satisfaction.\n\nBy reinforcing these positive practices and addressing areas of improvement, you can continue to enhance patient satisfaction and overall experience within your healthcare setting. See the chart below for a visual representation of these trends.",
+        "chart_data": {
+            "Positive Sentiment": [1, 0, 1, 2],  # Julho, Agosto, Setembro, Outubro
+            "Negative Sentiment": [1, 1, 1, 0]   # Julho, Agosto, Setembro, Outubro
+        }
     }
 }
-
 
 def new_bot_component():
     st.title("AI-Skills Advisor")
@@ -45,8 +48,10 @@ def new_bot_component():
 
     # Display chat messages from history (full width)
     for msg in st.session_state.messages:
-        with st.chat_message(msg["role"], avatar=msg["avatar"]):
+        with st.chat_message(msg["role"], avatar=msg.get("avatar")):
             st.markdown(msg["content"])
+            if "chart_data" in msg:
+                st.line_chart(msg["chart_data"])
 
     # Center the buttons
     button_container = st.container()
@@ -91,14 +96,20 @@ def process_query(query):
         {"role": "user", "content": query, "avatar": user_avatar_path})
 
     # Process the query and get response
-    response = get_response(query)
+    response, chart_data = get_response(query)
 
     # Add assistant response to chat history
-    st.session_state.messages.append(
-        {"role": "assistant", "content": response, "avatar": assistant_avatar_path})
+    assistant_message = {
+        "role": "assistant",
+        "content": response,
+        "avatar": assistant_avatar_path
+    }
+    if chart_data:
+        assistant_message["chart_data"] = chart_data
+    st.session_state.messages.append(assistant_message)
 
     # Rerun the app to update the chat
-    st.rerun()  # Changed from st.experimental_rerun() to st.rerun()
+    st.rerun()
 
 
 def get_response(query):
@@ -132,13 +143,14 @@ def get_response(query):
     for key, value in data.items():
         if query.lower() in value["question"].lower():
             response = value["answer"]
+            chart_data = value.get("chart_data")
             confidence_indicator = "✅ Verified Response (Confidence: 100.0%)"
-            return f"{response}\n\n*{confidence_indicator}*"
+            return f"{response}\n\n*{confidence_indicator}*", chart_data
 
     # If no matching question is found
     response = "I apologize, but this is a demo version of the AI-Skills Advisor, which can only respond to predefined questions. For a full interactive experience, please use the actual AI-Skills Advisor system. For more details, please contact [bc@inmotion.today](mailto:bc@inmotion.today)."
     confidence_indicator = "ℹ️ Demo Response"
-    return f"{response}\n\n*{confidence_indicator}*"
+    return f"{response}\n\n*{confidence_indicator}*", None
 
 
 
