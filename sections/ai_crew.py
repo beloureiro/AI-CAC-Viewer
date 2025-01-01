@@ -176,7 +176,8 @@ def ai_crew_component():
                 with col1:
                     image = load_image(agent["image"])
                     if image:
-                        st.image(image, use_column_width=True)
+                        # Parâmetro deprecado substituído por use_container_width
+                        st.image(image, use_container_width=True)
                     else:
                         st.error("Image not available")
                 
